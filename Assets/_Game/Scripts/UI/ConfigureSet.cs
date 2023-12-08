@@ -7,7 +7,7 @@ public class ConfigureSet : MonoBehaviour
     public Image PreviewBackground, PreviewMap, PreviewBall;
     public SelectButtonText Color, Ball, Map;
     public Transform SetItemsPoint;
-    public SelectButtonIcon PrevButton, NextButton;
+    public SelectButton PrevButton, NextButton;
     public TextMeshProUGUI CurrentSetName;
     public Button SaveButton;
 }

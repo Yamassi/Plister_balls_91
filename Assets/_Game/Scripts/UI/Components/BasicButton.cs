@@ -3,21 +3,21 @@ using UnityEngine.UI;
 
 public class BasicButton : MonoBehaviour
 {
-    [SerializeField] private Button _button;
+    public Button Button;
 
     private void OnValidate()
     {
-        _button = GetComponent<Button>();
+        Button = GetComponent<Button>();
     }
 
     private void OnEnable()
     {
-        _button.onClick.AddListener(Click);
+        Button.onClick.AddListener(Click);
     }
 
     private void OnDisable()
     {
-        _button.onClick.RemoveListener(Click);
+        Button.onClick.RemoveListener(Click);
     }
 
     private void Click()

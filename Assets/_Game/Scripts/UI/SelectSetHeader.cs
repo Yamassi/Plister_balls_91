@@ -1,7 +1,8 @@
 using TMPro;
 using UnityEngine;
 
-public class Header : MonoBehaviour
+public class SelectSetHeader : MonoBehaviour
 {
     public TextMeshProUGUI HeaderText;
+
 }
