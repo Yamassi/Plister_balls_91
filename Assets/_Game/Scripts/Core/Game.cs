@@ -17,10 +17,32 @@ public class Game : IStateSwitcher
         _stateMachine = new StateMachine();
 
         _allStates = new List<State>(){
-            new LoadingState(_uIHolder.Loading),
-            new MainMenuState(_uIHolder.TopA.Coins,_uIHolder.TopB.Header,_uIHolder.BottomB.MainMenu),
-            new ShopState(),
+            new LoadingState(this,_uIHolder.TopA,
+            _uIHolder.Loading),
+
+            new MainMenuState(this,_uIHolder.TopA,
+            _uIHolder.BottomB.MainMenu),
+
+            new ShopState(this, _uIHolder.TopA,
+            _uIHolder.TopB.ShopButtons, _uIHolder.BottomB.Shop),
+
+            new MySetsState(this, _uIHolder.TopA,
+            _uIHolder.BottomA.MySets),
+
+            new SelectSetState(this, _uIHolder.TopA,
+            _uIHolder.BottomB.SelectSet),
+
+            new ConfigureSetState(this, _uIHolder.TopA,
+            _uIHolder.BottomA.ConfigureSet),
+
+            new ConfigureDifficultyState(this,_uIHolder.TopA,
+            _uIHolder.BottomA.ConfigureDifficulty),
+            new GamePlayState(this,_uIHolder.TopA,
+            _uIHolder.BottomA.GamePlayUI),
+            new SettingsState(this,_uIHolder.TopA,
+            _uIHolder.BottomA.Settings),
         };
+
         _currentState = _allStates[0];
 
         _stateMachine.Init(_currentState);

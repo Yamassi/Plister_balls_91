@@ -1,8 +1,11 @@
 public class SelectSetState : State
 {
-    public SelectSetState()
-    {
 
+    private SelectSet _selectSet;
+    public SelectSetState(IStateSwitcher stateSwitcher, TopA topA,
+    SelectSet selectSet) : base(stateSwitcher, topA)
+    {
+        _selectSet = selectSet;
     }
     public override void Enter()
     {

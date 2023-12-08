@@ -2,25 +2,22 @@ using UnityEngine.UI;
 
 public class MainMenuState : State
 {
-    private Coins _coins;
-    private Header _header;
-    private MainMenu _mainMenu;
-    public MainMenuState(Coins coins, Header header, MainMenu mainMenu)
+    private readonly MainMenu _mainMenu;
+    public MainMenuState(IStateSwitcher stateSwitcher,
+    TopA topA, MainMenu mainMenu) : base(stateSwitcher, topA)
     {
-        _coins = coins;
-        _header = header;
         _mainMenu = mainMenu;
     }
     public override void Enter()
     {
-        _coins.gameObject.SetActive(true);
-        _header.gameObject.SetActive(true);
+        _topA.Coins.gameObject.SetActive(true);
+        _topA.Header.gameObject.SetActive(true);
         _mainMenu.gameObject.SetActive(true);
     }
     public override void Exit()
     {
-        _coins.gameObject.SetActive(false);
-        _header.gameObject.SetActive(false);
+        _topA.Coins.gameObject.SetActive(false);
+        _topA.Header.gameObject.SetActive(false);
         _mainMenu.gameObject.SetActive(false);
     }
 }

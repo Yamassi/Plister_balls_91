@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class TopA : MonoBehaviour
 {
-    public Button BackButton, GameSettings;
+    public Button BackButton, SettingsButton;
     public Coins Coins;
-    public SelectSetHeader SelectSet;
-    public Header SettingsHeader;
+    public Header Header;
+    public SettingsHeader SettingsHeader;
 }

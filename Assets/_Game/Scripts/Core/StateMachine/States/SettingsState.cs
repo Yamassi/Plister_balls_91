@@ -1,8 +1,10 @@
 public class SettingsState : State
 {
-    public SettingsState()
+    private Settings _settings;
+    public SettingsState(IStateSwitcher stateSwitcher,
+    TopA topA, Settings settings) : base(stateSwitcher, topA)
     {
-
+        _settings = settings;
     }
     public override void Enter()
     {

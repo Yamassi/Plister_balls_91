@@ -1,8 +1,10 @@
-public class ParametersState : State
+public class ConfigureDifficultyState : State
 {
-    public ParametersState()
+    private ConfigureDifficulty _configureDifficulty;
+    public ConfigureDifficultyState(IStateSwitcher stateSwitcher,
+    TopA topA, ConfigureDifficulty configureDifficulty) : base(stateSwitcher, topA)
     {
-
+        _configureDifficulty = configureDifficulty;
     }
     public override void Enter()
     {
