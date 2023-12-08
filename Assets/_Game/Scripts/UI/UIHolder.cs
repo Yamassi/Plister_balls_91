@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class UIHolder : MonoBehaviour
 {
-    public Boot Boot;
+    public Loading Loading;
     public TopA TopA;
     public TopB TopB;
     public BottomA BottomA;
