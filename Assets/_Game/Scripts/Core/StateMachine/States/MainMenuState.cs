@@ -5,6 +5,7 @@ public class MainMenuState : State
 {
     private readonly MainMenu _mainMenu;
     private readonly TopB _topB;
+    private GiftsCore _giftsCore;
     public MainMenuState(IStateSwitcher stateSwitcher,
     TopA topA, TopB topB, MainMenu mainMenu) : base(stateSwitcher, topA)
     {
@@ -22,6 +23,11 @@ public class MainMenuState : State
         _mainMenu.MySets.onClick.AddListener(SwitchToMySets);
         _mainMenu.Shop.onClick.AddListener(SwitchToShop);
         _mainMenu.Play.onClick.AddListener(SwitchToSelectSet);
+
+        if (_giftsCore == null)
+            _giftsCore = new(_mainMenu.Gifts.GiftItems);
+
+        _giftsCore.Init();
     }
     public override void Exit()
     {
@@ -32,6 +38,8 @@ public class MainMenuState : State
         _mainMenu.MySets.onClick.RemoveListener(SwitchToMySets);
         _mainMenu.Shop.onClick.RemoveListener(SwitchToShop);
         _mainMenu.Play.onClick.RemoveListener(SwitchToSelectSet);
+
+        _giftsCore.DeInit();
     }
     private void SwitchToSelectSet()
     {

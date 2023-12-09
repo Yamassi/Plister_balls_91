@@ -16,9 +16,9 @@ public class Game : IStateSwitcher
     }
     public void Init()
     {
-        _stateMachine = new StateMachine();
+        _stateMachine = new();
 
-        _allStates = new List<State>(){
+        _allStates = new(){
             new LoadingState(this,_uIHolder.TopA,
             _uIHolder.Loading),
 

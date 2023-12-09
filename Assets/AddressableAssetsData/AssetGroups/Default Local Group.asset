@@ -42,6 +42,101 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a75e6be0b20d34bc58cbe4baa39eda6f
+    m_Address: Map0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4ed6f70e52a354065a51fa6026fefe79
+    m_Address: Map4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f664f07b7401345c98a838cca8316d96
+    m_Address: Map3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9880e91d8a65d4be588fe2428cea0aeb
+    m_Address: Map2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3e43ef0af838e4e32b0e313283acd327
+    m_Address: Map1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: db76418611d34431bba4d0df2f4e50e5
+    m_Address: Coins0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d25fcd10fbde543c69e64ff100391ce0
+    m_Address: Coins1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2d398a363e49d4cb688ffacea92435c3
+    m_Address: Coins2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d4f96ca4f934a495781d428e5e8bdb82
+    m_Address: Ball0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fdbc6dc8e4719492e9f2bba6d5bbaa39
+    m_Address: Ball1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 025086f0def4b453c8d6f2a3f2a50597
+    m_Address: Ball2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b20eb5dc4a9ff469e8f8c11c74f47047
+    m_Address: Ball3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c8cbbb9ed3021493fbcdc2d913e27a9e
+    m_Address: Ball4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e0b08b66a56d74a1394d012a1f732537
+    m_Address: Background0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 43ba94f8fb09942a295d9823f2817c4f
+    m_Address: Background1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0876bdabb7de5461690ff934b5da6e8e
+    m_Address: Background2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 900d9c56006204181aa3d1a1db8acb1d
+    m_Address: Background3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6b6f8f54e73e6449cbb90f9863f334e1
+    m_Address: Background4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1b123d9a92f834c7aa5a814984a15025
+    m_Address: EmptyGift
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5f5bac9cf5fdb42d3a4f379019183f0e, type: 2}
   m_SchemaSet:
