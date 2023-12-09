@@ -4,13 +4,15 @@ using System.Linq;
 public class Game : IStateSwitcher
 {
     private UIHolder _uIHolder;
+    private GamePlay _gamePlay;
     private StateMachine _stateMachine;
     private List<State> _allStates;
     private State _currentState;
 
-    public Game(UIHolder uIHolder)
+    public Game(UIHolder uIHolder, GamePlay gamePlay)
     {
         _uIHolder = uIHolder;
+        _gamePlay = gamePlay;
     }
     public void Init()
     {
@@ -21,7 +23,7 @@ public class Game : IStateSwitcher
             _uIHolder.Loading),
 
             new MainMenuState(this,_uIHolder.TopA,
-            _uIHolder.BottomB.MainMenu),
+            _uIHolder.TopB,_uIHolder.BottomB.MainMenu),
 
             new ShopState(this, _uIHolder.TopA,
             _uIHolder.TopB.ShopButtons, _uIHolder.BottomB.Shop),
@@ -30,15 +32,17 @@ public class Game : IStateSwitcher
             _uIHolder.BottomA.MySets),
 
             new SelectSetState(this, _uIHolder.TopA,
-            _uIHolder.BottomB.SelectSet),
+           _uIHolder.TopB, _uIHolder.BottomB.SelectSet),
 
             new ConfigureSetState(this, _uIHolder.TopA,
             _uIHolder.BottomA.ConfigureSet),
 
             new ConfigureDifficultyState(this,_uIHolder.TopA,
             _uIHolder.BottomA.ConfigureDifficulty),
+
             new GamePlayState(this,_uIHolder.TopA,
-            _uIHolder.BottomA.GamePlayUI),
+            _uIHolder.BottomA.GamePlayUI, _gamePlay),
+
             new SettingsState(this,_uIHolder.TopA,
             _uIHolder.BottomA.Settings),
         };
