@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Tretimi;
 public class Bootloader : MonoBehaviour
 {
     [SerializeField] private UIHolder _uIHolder;
@@ -11,5 +11,10 @@ public class Bootloader : MonoBehaviour
     {
         _game = new Game(_uIHolder, _gamePlay);
         _game.Init();
+    }
+    private void OnApplicationQuit()
+    {
+        Debug.Log("Application Quit");
+        DataProvider.SaveData(_game.Data);
     }
 }

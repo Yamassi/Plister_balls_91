@@ -2,7 +2,8 @@ public class ConfigureDifficultyState : State
 {
     private ConfigureDifficulty _configureDifficulty;
     public ConfigureDifficultyState(IStateSwitcher stateSwitcher,
-    TopA topA, ConfigureDifficulty configureDifficulty) : base(stateSwitcher, topA)
+    IDataService dataService, TopA topA,
+    ConfigureDifficulty configureDifficulty) : base(stateSwitcher, dataService, topA)
     {
         _configureDifficulty = configureDifficulty;
     }

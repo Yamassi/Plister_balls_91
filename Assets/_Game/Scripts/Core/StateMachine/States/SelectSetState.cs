@@ -2,8 +2,8 @@ public class SelectSetState : State
 {
     private TopB _topB;
     private SelectSet _selectSet;
-    public SelectSetState(IStateSwitcher stateSwitcher, TopA topA,
-   TopB topB, SelectSet selectSet) : base(stateSwitcher, topA)
+    public SelectSetState(IStateSwitcher stateSwitcher, IDataService dataService, TopA topA,
+   TopB topB, SelectSet selectSet) : base(stateSwitcher, dataService, topA)
     {
         _topB = topB;
         _selectSet = selectSet;

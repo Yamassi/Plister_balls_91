@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
@@ -30,7 +28,7 @@ namespace Tretimi
 
             return data;
         }
-        public static void SaveGame(SaveData data)
+        public static void SaveData(SaveData data)
         {
             if (data != null)
             {
@@ -46,7 +44,7 @@ namespace Tretimi
                 Debug.LogError($"Data not saved {data}");
 
         }
-        public static SaveData LoadGame()
+        public static SaveData LoadData()
         {
             if (File.Exists(Application.persistentDataPath
               + "/Data.dat"))
@@ -69,16 +67,6 @@ namespace Tretimi
             }
 
         }
-    }
-
-    [Serializable]
-    public class SaveData
-    {
-        public float Coins;
-        public string TimeToOpenGift;
-        public List<int> AvailableBalls;
-        public List<int> AvailableMaps;
-        public List<int> AvailableBackgrounds;
     }
 }
 

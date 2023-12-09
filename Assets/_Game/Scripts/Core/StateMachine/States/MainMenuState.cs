@@ -7,7 +7,8 @@ public class MainMenuState : State
     private readonly TopB _topB;
     private GiftsCore _giftsCore;
     public MainMenuState(IStateSwitcher stateSwitcher,
-    TopA topA, TopB topB, MainMenu mainMenu) : base(stateSwitcher, topA)
+    IDataService dataService, TopA topA, TopB topB,
+    MainMenu mainMenu) : base(stateSwitcher, dataService, topA)
     {
         _topB = topB;
         _mainMenu = mainMenu;
@@ -25,7 +26,7 @@ public class MainMenuState : State
         _mainMenu.Play.onClick.AddListener(SwitchToSelectSet);
 
         if (_giftsCore == null)
-            _giftsCore = new(_mainMenu.Gifts.GiftItems);
+            _giftsCore = new(_mainMenu.Gifts, _dataService);
 
         _giftsCore.Init();
     }

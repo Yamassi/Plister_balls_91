@@ -5,8 +5,8 @@ using UnityEngine;
 public class LoadingState : State
 {
     private readonly Loading _loadingPage;
-    public LoadingState(IStateSwitcher stateSwitcher,
-    TopA topA, Loading loadingPage) : base(stateSwitcher, topA)
+    public LoadingState(IStateSwitcher stateSwitcher, IDataService dataService,
+    TopA topA, Loading loadingPage) : base(stateSwitcher, dataService, topA)
     {
         _loadingPage = loadingPage;
     }

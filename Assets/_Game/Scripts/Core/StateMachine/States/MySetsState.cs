@@ -1,8 +1,8 @@
 public class MySetsState : State
 {
     private MySets _mySets;
-    public MySetsState(IStateSwitcher stateSwitcher,
-    TopA topA, MySets mySets) : base(stateSwitcher, topA)
+    public MySetsState(IStateSwitcher stateSwitcher, IDataService dataService,
+    TopA topA, MySets mySets) : base(stateSwitcher, dataService, topA)
     {
         _mySets = mySets;
     }

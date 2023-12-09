@@ -1,8 +1,8 @@
 public class ConfigureSetState : State
 {
     private ConfigureSet _configureSet;
-    public ConfigureSetState(IStateSwitcher stateSwitcher,
-    TopA topA, ConfigureSet configureSet) : base(stateSwitcher, topA)
+    public ConfigureSetState(IStateSwitcher stateSwitcher, IDataService dataService,
+    TopA topA, ConfigureSet configureSet) : base(stateSwitcher, dataService, topA)
     {
         _configureSet = configureSet;
     }

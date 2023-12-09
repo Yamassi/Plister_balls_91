@@ -5,8 +5,8 @@ public class ShopState : State
 {
     private readonly ShopButtons _shopButtons;
     private readonly Shop _shop;
-    public ShopState(IStateSwitcher stateSwitcher, TopA topA,
-    ShopButtons shopButtons, Shop shop) : base(stateSwitcher, topA)
+    public ShopState(IStateSwitcher stateSwitcher, IDataService dataService,
+    TopA topA, ShopButtons shopButtons, Shop shop) : base(stateSwitcher, dataService, topA)
     {
         _shopButtons = shopButtons;
         _shop = shop;

@@ -1,54 +1,93 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Tretimi;
 using UnityEngine;
-
+using UniRx;
 public class GiftsCore
 {
-    private readonly List<GiftItem> _giftItems;
-    private List<(GiftType, int)> _openGifts = new(4);
-    private bool _isGiftsAvailable = true;
+    private readonly Gifts _gifts;
+    private List<(GiftType giftType, int id)> _openGifts = new(4);
+    private bool _isGiftsAvailable = false;
     private float _itemDropChance = 20;
-    public GiftsCore(List<GiftItem> giftItems)
+    private readonly IDataService _dataHolder;
+    private CompositeDisposable _disposable = new();
+    public GiftsCore(Gifts gifts, IDataService dataHolder)
     {
-        _giftItems = giftItems;
+        _gifts = gifts;
+        _dataHolder = dataHolder;
     }
     public void Init()
     {
+        DateTime timeToOpenGift = UITools.Timer.ConvertStringToDateTime(_dataHolder.GetData().TimeToOpenGift);
+        DateTime currentTime = DateTime.Now;
+
+        if (currentTime > timeToOpenGift)
+        {
+            Debug.Log($"Time to open gift - {timeToOpenGift}");
+            Debug.Log($"Current Time - {currentTime}");
+            _isGiftsAvailable = true;
+            _openGifts = new(4);
+
+            _gifts.GetButton.gameObject.SetActive(false);
+            _gifts.TextBox.Text.text = "0/3";
+        }
+        else
+        {
+            Debug.LogError($"Time to open gift NOT COME - {timeToOpenGift}");
+            Debug.LogError($"Current Time - {currentTime}");
+            _isGiftsAvailable = false;
+            StartTimer();
+        }
+
         ResetGifts();
+
         if (_isGiftsAvailable)
-            for (int i = 0; i < _giftItems.Count; i++)
-            {
-                _giftItems[i].OnGiftClick += GiftSelected;
-            }
+            SubcribeToGitfsClick();
     }
+
     public void DeInit()
     {
         if (_isGiftsAvailable)
-            for (int i = 0; i < _giftItems.Count; i++)
-            {
-                _giftItems[i].OnGiftClick -= GiftSelected;
-            }
+            UnsubcribeToGitfsClicks();
+
+        _disposable.Clear();
     }
+
+    private void SubcribeToGitfsClick()
+    {
+        for (int i = 0; i < _gifts.GiftItems.Count; i++)
+        {
+            _gifts.GiftItems[i].OnGiftClick += GiftSelected;
+        }
+    }
+
+    private void UnsubcribeToGitfsClicks()
+    {
+        for (int i = 0; i < _gifts.GiftItems.Count; i++)
+        {
+            _gifts.GiftItems[i].OnGiftClick -= GiftSelected;
+        }
+    }
+
     public async void ResetGifts()
     {
-        for (int i = 0; i < _giftItems.Count; i++)
+        for (int i = 0; i < _gifts.GiftItems.Count; i++)
         {
-            _giftItems[i].BoxButton.gameObject.SetActive(true);
-            _giftItems[i].Prize.gameObject.SetActive(false);
-            _giftItems[i].Prize.PrizeImage.sprite = await Assets.GetAsset<Sprite>("EmptyGift");
+            _gifts.GiftItems[i].BoxButton.gameObject.SetActive(true);
+            _gifts.GiftItems[i].Prize.gameObject.SetActive(false);
+            _gifts.GiftItems[i].Prize.PrizeImage.sprite = await Assets.GetAsset<Sprite>("EmptyGift");
         }
     }
     private void GiftSelected(int id)
     {
-        GiftItem giftItem = _giftItems.FirstOrDefault(s => s.ID == id);
+        GiftItem giftItem = _gifts.GiftItems.FirstOrDefault(s => s.ID == id);
         giftItem.BoxButton.gameObject.SetActive(false);
         Debug.Log($"Gift Selected ID{id} \n giftItem {giftItem}");
 
         GenerateGift(giftItem.Prize);
         giftItem.Prize.gameObject.SetActive(true);
+        _gifts.TextBox.Text.text = $"{_openGifts.Count}/3";
     }
 
     private async void GenerateGift(Prize prize)
@@ -84,12 +123,77 @@ public class GiftsCore
                 break;
             case 3:
                 Debug.Log("Win Coins");
-                _openGifts.Add((GiftType.Coins, randomGiftNum));
                 int coinsAmount = GenerateCoins();
+                _openGifts.Add((GiftType.Coins, coinsAmount));
                 prize.PrizeImage.sprite = await Assets.GetAsset<Sprite>($"Coins0");
                 prize.PrizeText.text = $"x{coinsAmount}";
                 break;
         }
+
+        if (_openGifts.Count >= 3)
+        {
+            UnsubcribeToGitfsClicks();
+            _gifts.TextBox.gameObject.SetActive(false);
+            _gifts.GetButton.gameObject.SetActive(true);
+            _gifts.GetButton.onClick.AddListener(GetGifts);
+        }
+    }
+
+    private void GetGifts()
+    {
+        _gifts.GetButton.onClick.RemoveListener(GetGifts);
+
+        DateTime time = DateTime.Now;
+        _dataHolder.GetData().TimeToOpenGift = time.AddHours(Const.WaitGiftHours).ToString();
+
+        for (int i = 0; i < _openGifts.Count; i++)
+        {
+            switch (_openGifts[i].giftType)
+            {
+                case GiftType.Ball:
+                    _dataHolder.GetData().AvailableBalls.Add(_openGifts[i].id);
+                    break;
+                case GiftType.Map:
+                    _dataHolder.GetData().AvailableMaps.Add(_openGifts[i].id);
+                    break;
+                case GiftType.Background:
+                    _dataHolder.GetData().AvailableBackgrounds.Add(_openGifts[i].id);
+                    break;
+                case GiftType.Coins:
+                    _dataHolder.GetData().Coins += _openGifts[i].id;
+                    break;
+            }
+        }
+
+        _dataHolder.UpdateUI();
+        ResetGifts();
+
+        StartTimer();
+    }
+
+    private void StartTimer()
+    {
+        _gifts.GetButton.gameObject.SetActive(false);
+        _gifts.TextBox.gameObject.SetActive(true);
+
+        DateTime timerToOpen = UITools.Timer.ConvertStringToDateTime(_dataHolder.GetData().TimeToOpenGift);
+        DateTime currentTime = DateTime.Now;
+
+        var difference = timerToOpen.Subtract(currentTime);
+        float remainingTime = (float)difference.TotalSeconds;
+
+        Observable.EveryUpdate().Subscribe(_ =>
+        {
+            if (remainingTime != 0)
+            {
+                remainingTime -= Time.deltaTime;
+                TimeSpan time = TimeSpan.FromSeconds(remainingTime);
+
+                _gifts.TextBox.Text.text = $"{time.Hours}:{time.Minutes}:{time.Seconds}";
+            }
+        }).AddTo(_disposable);
+
+
     }
 
     private void SetBackgroundPrizeText(Prize prize, int randomGiftNum)
