@@ -11,7 +11,7 @@ namespace Tretimi
         public List<int> AvailableBalls;
         public List<int> AvailableMaps;
         public List<int> AvailableBackgrounds;
-        public List<(int, int, int)> MySets;
+        public List<(int ball, int background, int map)> MySets;
     }
 }
 
