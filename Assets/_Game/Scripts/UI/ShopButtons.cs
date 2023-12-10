@@ -3,5 +3,5 @@ using UnityEngine.UI;
 
 public class ShopButtons : MonoBehaviour
 {
-    public Button BallButton, MapButton, BackgroundButton, CoinsButton;
+    public SelectButton BallButton, MapButton, BackgroundButton, CoinsButton;
 }

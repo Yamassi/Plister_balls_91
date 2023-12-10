@@ -11,11 +11,12 @@ public class Game : IStateSwitcher, IDataService
     private StateMachine _stateMachine;
     private List<State> _allStates;
     private State _currentState;
-
-    public Game(UIHolder uIHolder, GamePlay gamePlay)
+    private ItemsData _itemsData;
+    public Game(UIHolder uIHolder, GamePlay gamePlay, ItemsData itemsData)
     {
         _uIHolder = uIHolder;
         _gamePlay = gamePlay;
+        _itemsData = itemsData;
     }
 
     public void Init()
@@ -99,11 +100,15 @@ public class Game : IStateSwitcher, IDataService
     {
         return Data;
     }
-
+    public ItemsData GetItemsData()
+    {
+        return _itemsData;
+    }
     public void UpdateUI()
     {
         _uIHolder.TopA.Coins.CoinsText.text = Data.Coins.ToString();
     }
+
 }
 
 public interface IStateSwitcher
@@ -114,5 +119,6 @@ public interface IStateSwitcher
 public interface IDataService
 {
     SaveData GetData();
+    ItemsData GetItemsData();
     void UpdateUI();
 }

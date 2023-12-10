@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class BasicButton : MonoBehaviour
 {
     public Button Button;
-
     private void OnValidate()
     {
         Button = GetComponent<Button>();

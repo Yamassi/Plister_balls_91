@@ -6,7 +6,7 @@ namespace Tretimi
     [Serializable]
     public class SaveData
     {
-        public float Coins;
+        public int Coins;
         public string TimeToOpenGift;
         public List<int> AvailableBalls;
         public List<int> AvailableMaps;
