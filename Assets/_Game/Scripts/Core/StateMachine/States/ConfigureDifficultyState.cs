@@ -4,7 +4,8 @@ using UnityEngine;
 public class ConfigureDifficultyState : State
 {
     private ConfigureDifficulty _configureDifficulty;
-    private int _currentDifficulty, _currentCost, _currentWeight;
+    private int _currentDifficulty, _currentCost,
+    _currentWeight, _currentMap;
     public ConfigureDifficultyState(IStateSwitcher stateSwitcher,
     IDataService dataService, TopA topA,
     ConfigureDifficulty configureDifficulty) : base(stateSwitcher, dataService, topA)
@@ -32,17 +33,6 @@ public class ConfigureDifficultyState : State
 
         UnsubscribeToButtons();
     }
-
-    private void ConfigureCurrentDifficulty()
-    {
-        _currentDifficulty = PlayerPrefs.GetInt("CurrentDifficulty");
-        _currentCost = PlayerPrefs.GetInt("CurrentCost");
-        _currentWeight = PlayerPrefs.GetInt("CurrentWeight");
-
-        _configureDifficulty.SetCost(_currentCost);
-        _configureDifficulty.SetWeight(_currentWeight);
-        _configureDifficulty.SetDifficulty(_currentDifficulty);
-    }
     private void SubscribeToButtons()
     {
         _topA.BackButton.onClick.AddListener(GoToGamePlay);
@@ -50,7 +40,71 @@ public class ConfigureDifficultyState : State
 
         _configureDifficulty.OnCostSelect += CostChanged;
         _configureDifficulty.OnWeightSelect += WeightChanged;
+        _configureDifficulty.OnNextSelect += NextItem;
+        _configureDifficulty.OnPrevSelect += PrevItem;
     }
+    private void UnsubscribeToButtons()
+    {
+        _topA.BackButton.onClick.AddListener(GoToGamePlay);
+        _configureDifficulty.PlayButton.onClick.RemoveListener(GoToGamePlay);
+
+        _configureDifficulty.OnCostSelect -= CostChanged;
+        _configureDifficulty.OnWeightSelect -= WeightChanged;
+        _configureDifficulty.OnNextSelect -= NextItem;
+        _configureDifficulty.OnPrevSelect -= PrevItem;
+    }
+    private void ConfigureCurrentDifficulty()
+    {
+        _currentDifficulty = PlayerPrefs.GetInt("CurrentDifficulty");
+        _currentCost = PlayerPrefs.GetInt("CurrentCost");
+        _currentWeight = PlayerPrefs.GetInt("CurrentWeight");
+        _currentMap = PlayerPrefs.GetInt("CurrentMap");
+
+        _configureDifficulty.SetCost(_currentCost);
+        _configureDifficulty.SetWeight(_currentWeight);
+        _configureDifficulty.SetCurrentDifficulty(_currentDifficulty);
+
+        PrepareDifficultyItems();
+    }
+
+    private async void PrepareDifficultyItems()
+    {
+
+        _configureDifficulty.ClearConfigureSetItems();
+
+        DifficultyItem firstEmptySetItem = _configureDifficulty.CreateSetItem();
+        firstEmptySetItem.SetEmpty();
+        _configureDifficulty.DifficultyItems.Add(firstEmptySetItem);
+
+        for (int i = 0; i < 5; i++)
+        {
+            DifficultyItem difficultyItem = _configureDifficulty.CreateSetItem();
+            Sprite sprite = await Tretimi.Assets.GetAsset<Sprite>($"Map_{_currentMap}_{i}");
+            difficultyItem.MapImage.sprite = sprite;
+            _configureDifficulty.DifficultyItems.Add(difficultyItem);
+        }
+
+        DifficultyItem lastEmptySetItem = _configureDifficulty.CreateSetItem();
+        lastEmptySetItem.SetEmpty();
+        _configureDifficulty.DifficultyItems.Add(lastEmptySetItem);
+
+        _configureDifficulty.SetCurrentDifficulty(_currentDifficulty);
+        _configureDifficulty.CurrentDifficultyNumber.text = $"{_currentDifficulty + 1}/5";
+    }
+
+    private void PrevItem()
+    {
+        _currentDifficulty--;
+        _configureDifficulty.CurrentDifficultyNumber.text = $"{_currentDifficulty + 1}/5";
+    }
+
+    private void NextItem()
+    {
+        _currentDifficulty++;
+        _configureDifficulty.CurrentDifficultyNumber.text = $"{_currentDifficulty + 1}/5";
+    }
+
+
 
     private void WeightChanged(int weight)
     {
@@ -60,15 +114,6 @@ public class ConfigureDifficultyState : State
     private void CostChanged(int cost)
     {
         _currentCost = cost;
-    }
-
-    private void UnsubscribeToButtons()
-    {
-        _topA.BackButton.onClick.AddListener(GoToGamePlay);
-        _configureDifficulty.PlayButton.onClick.RemoveListener(GoToGamePlay);
-
-        _configureDifficulty.OnCostSelect -= CostChanged;
-        _configureDifficulty.OnWeightSelect -= WeightChanged;
     }
 
     private void GoToGamePlay()

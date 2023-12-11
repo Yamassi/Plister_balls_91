@@ -64,6 +64,7 @@ public class GamePlayState : State
 
     private void GoToParameters()
     {
+        PlayerPrefs.SetInt("CurrentMap", _currentMapID);
         _stateSwitcher.SwitchState<ConfigureDifficultyState>();
     }
 
