@@ -21,4 +21,17 @@ public abstract class State
     {
 
     }
+
+    protected int GetAvailableColorID(int index)
+    {
+        return _dataService.GetData().AvailableBackgrounds[index];
+    }
+    protected int GetAvailableBallID(int index)
+    {
+        return _dataService.GetData().AvailableBalls[index];
+    }
+    protected int GetAvailableMapID(int index)
+    {
+        return _dataService.GetData().AvailableMaps[index];
+    }
 }

@@ -68,7 +68,7 @@ public class ShopState : State
 
         switch (_currentItemsType)
         {
-            case ItemType.Background:
+            case ItemType.Color:
                 price = _dataService.GetItemsData().Backgrounds[id].Price;
                 availableItemsData = _dataService.GetData().AvailableBackgrounds;
                 break;
@@ -130,7 +130,7 @@ public class ShopState : State
 
     private void OpenBackgroundShop()
     {
-        _currentItemsType = ItemType.Background;
+        _currentItemsType = ItemType.Color;
 
         _shop.ShopCoinsList.gameObject.SetActive(false);
         _shop.ShopItemsPoint.gameObject.SetActive(true);
@@ -142,7 +142,7 @@ public class ShopState : State
 
         List<ShopItemSO> itemsSO = _dataService.GetItemsData().Backgrounds;
         List<int> availableItems = _dataService.GetData().AvailableBackgrounds;
-        UpdateList(itemsSO, availableItems, ItemType.Background);
+        UpdateList(itemsSO, availableItems, ItemType.Color);
     }
 
     private void OpenBallShop()
@@ -166,7 +166,7 @@ public class ShopState : State
     {
         string spriteName = itemType switch
         {
-            ItemType.Background => "Background",
+            ItemType.Color => "Background",
             ItemType.Map => "Map",
             _ => "ShopBall",
         };
@@ -180,7 +180,7 @@ public class ShopState : State
                 case ItemType.Ball:
                     _shop.ShopItems[i].SetImage(sprite);
                     break;
-                case ItemType.Background:
+                case ItemType.Color:
                     _shop.ShopItems[i].SetFullImage(sprite);
                     break;
                 case ItemType.Map:
@@ -206,6 +206,6 @@ public class ShopState : State
 public enum ItemType
 {
     Ball,
-    Background,
+    Color,
     Map,
 }

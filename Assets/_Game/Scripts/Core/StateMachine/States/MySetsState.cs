@@ -43,9 +43,9 @@ public class MySetsState : State
 
         for (int i = 0; i < mySetsData.Count; i++)
         {
-            Sprite ballImage = await Tretimi.Assets.GetAsset<Sprite>($"Ball{mySetsData[i].ball}");
-            Sprite backgroundImage = await Tretimi.Assets.GetAsset<Sprite>($"Background{mySetsData[i].background}");
-            Sprite mapImage = await Tretimi.Assets.GetAsset<Sprite>($"Map{mySetsData[i].map}");
+            Sprite ballImage = await Tretimi.Assets.GetAsset<Sprite>($"Ball{GetAvailableBallID(mySetsData[i].ball)}");
+            Sprite backgroundImage = await Tretimi.Assets.GetAsset<Sprite>($"Background{GetAvailableColorID(mySetsData[i].background)}");
+            Sprite mapImage = await Tretimi.Assets.GetAsset<Sprite>($"Map{GetAvailableMapID(mySetsData[i].map)}");
 
             _mySets.MySetsItems[i].SetItem(ballImage, backgroundImage, mapImage);
         }

@@ -14,6 +14,7 @@ public class ConfigureSet : MonoBehaviour
     public Action OnColorsSelect, OnBallsSelect, OnMapsSelect, OnPrevSelect, OnNextSelect;
     public Transform SetItemsPoint;
     public List<ConfigureSetItem> ConfigureSetItems;
+    public List<ConfigureSetItem> AvailableSetItems;
     [SerializeField] private ConfigureSetItem _configureSetItemPrefab;
     [SerializeField] private HorizontalLayoutGroup _hLG;
     private static Vector2 _stepSize = new Vector2(2.13f, 0);
@@ -156,7 +157,13 @@ public class ConfigureSet : MonoBehaviour
         {
             Destroy(ConfigureSetItems[i].gameObject);
         }
+        for (int i = 0; i < AvailableSetItems.Count; i++)
+        {
+            Destroy(AvailableSetItems[i].gameObject);
+        }
+
         ConfigureSetItems.Clear();
+        AvailableSetItems.Clear();
     }
 
     private void ColorSelect()

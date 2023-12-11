@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -77,13 +78,16 @@ public class ConfigureSetState : State
     private void SaveSet()
     {
         Debug.Log($"Current Configure Set {_currentConfigureSet}");
-        Debug.Log($"Save Set Ball {_currentBall}, Background {_currentColor}, Map {_currentMap}");
-        _dataService.GetData().MySets[_currentConfigureSet] = (_currentBall, _currentColor, _currentMap);
+        Debug.Log($"Save Set Ball {GetAvailableBallID(_currentBall)}, Background {GetAvailableColorID(_currentColor)}, Map {GetAvailableMapID(_currentMap)}");
+        _dataService.GetData().MySets[_currentConfigureSet] = (
+            _currentBall,
+           _currentColor,
+          _currentMap);
         _stateSwitcher.SwitchState<MySetsState>();
     }
     private async void ColorsSelect()
     {
-        _currentItemType = ItemType.Background;
+        _currentItemType = ItemType.Color;
 
         _configureSet.ClearConfigureSetItems();
 
@@ -98,7 +102,9 @@ public class ConfigureSetState : State
             ConfigureSetItem configureSetItem = _configureSet.CreateConfigureSetItem();
             Sprite sprite = await Tretimi.Assets.GetAsset<Sprite>($"Background{availableItems[i]}");
             configureSetItem.SetColor(sprite);
+            configureSetItem.ID = availableItems[i];
             _configureSet.ConfigureSetItems.Add(configureSetItem);
+            _configureSet.AvailableSetItems.Add(configureSetItem);
         }
 
         ConfigureSetItem lastEmptySetItem = _configureSet.CreateConfigureSetItem();
@@ -106,7 +112,8 @@ public class ConfigureSetState : State
         _configureSet.ConfigureSetItems.Add(lastEmptySetItem);
 
         _configureSet.SetCurrentScrollItem(_currentColor);
-        _configureSet.CurrentSetName.text = _dataService.GetItemsData().Backgrounds[_currentColor].Name;
+        int id = GetAvailableColorID(_currentColor);
+        _configureSet.CurrentSetName.text = _dataService.GetItemsData().Backgrounds[id].Name;
     }
     private async void BallsSelect()
     {
@@ -125,7 +132,9 @@ public class ConfigureSetState : State
             ConfigureSetItem configureSetItem = _configureSet.CreateConfigureSetItem();
             Sprite sprite = await Tretimi.Assets.GetAsset<Sprite>($"ShopBall{availableItems[i]}");
             configureSetItem.SetBall(sprite);
+            configureSetItem.ID = availableItems[i];
             _configureSet.ConfigureSetItems.Add(configureSetItem);
+            _configureSet.AvailableSetItems.Add(configureSetItem);
         }
 
         ConfigureSetItem lastEmptySetItem = _configureSet.CreateConfigureSetItem();
@@ -133,7 +142,8 @@ public class ConfigureSetState : State
         _configureSet.ConfigureSetItems.Add(lastEmptySetItem);
 
         _configureSet.SetCurrentScrollItem(_currentBall);
-        _configureSet.CurrentSetName.text = _dataService.GetItemsData().Balls[_currentBall].Name;
+        int id = GetAvailableBallID(_currentBall);
+        _configureSet.CurrentSetName.text = _dataService.GetItemsData().Balls[id].Name;
     }
 
     private async void MapsSelect()
@@ -153,7 +163,9 @@ public class ConfigureSetState : State
             ConfigureSetItem configureSetItem = _configureSet.CreateConfigureSetItem();
             Sprite sprite = await Tretimi.Assets.GetAsset<Sprite>($"Map{availableItems[i]}");
             configureSetItem.SetMap(sprite);
+            configureSetItem.ID = availableItems[i];
             _configureSet.ConfigureSetItems.Add(configureSetItem);
+            _configureSet.AvailableSetItems.Add(configureSetItem);
         }
 
         ConfigureSetItem lastEmptySetItem = _configureSet.CreateConfigureSetItem();
@@ -161,63 +173,76 @@ public class ConfigureSetState : State
         _configureSet.ConfigureSetItems.Add(lastEmptySetItem);
 
         _configureSet.SetCurrentScrollItem(_currentMap);
-        _configureSet.CurrentSetName.text = _dataService.GetItemsData().Maps[_currentMap].Name;
+        int id = GetAvailableMapID(_currentMap);
+        _configureSet.CurrentSetName.text = _dataService.GetItemsData().Maps[id].Name;
     }
+
     private void PrevItem()
     {
+        int id;
         switch (_currentItemType)
         {
-            case ItemType.Background:
+            case ItemType.Color:
                 _currentColor--;
-                _configureSet.CurrentSetName.text = _dataService.GetItemsData().Backgrounds[_currentColor].Name;
-                UpdatePreview();
+                id = GetAvailableColorID(_currentColor);
+                _configureSet.CurrentSetName.text = _dataService.GetItemsData().Backgrounds[id].Name;
                 break;
             case ItemType.Ball:
                 _currentBall--;
-                _configureSet.CurrentSetName.text = _dataService.GetItemsData().Balls[_currentBall].Name;
-                UpdatePreview();
+                id = GetAvailableBallID(_currentBall);
+                _configureSet.CurrentSetName.text = _dataService.GetItemsData().Balls[id].Name;
                 break;
             case ItemType.Map:
                 _currentMap--;
-                _configureSet.CurrentSetName.text = _dataService.GetItemsData().Maps[_currentMap].Name;
-                UpdatePreview();
+                id = GetAvailableMapID(_currentMap);
+                _configureSet.CurrentSetName.text = _dataService.GetItemsData().Maps[id].Name;
                 break;
         }
+        UpdatePreview();
     }
 
     private void NextItem()
     {
+        int id;
         switch (_currentItemType)
         {
-            case ItemType.Background:
+            case ItemType.Color:
                 _currentColor++;
-                _configureSet.CurrentSetName.text = _dataService.GetItemsData().Backgrounds[_currentColor].Name;
-                UpdatePreview();
+                id = GetAvailableColorID(_currentColor);
+                _configureSet.CurrentSetName.text = _dataService.GetItemsData().Backgrounds[id].Name;
                 break;
             case ItemType.Ball:
                 _currentBall++;
-                _configureSet.CurrentSetName.text = _dataService.GetItemsData().Balls[_currentBall].Name;
-                UpdatePreview();
+                id = GetAvailableBallID(_currentBall);
+                _configureSet.CurrentSetName.text = _dataService.GetItemsData().Balls[id].Name;
                 break;
             case ItemType.Map:
                 _currentMap++;
-                _configureSet.CurrentSetName.text = _dataService.GetItemsData().Maps[_currentMap].Name;
-                UpdatePreview();
+                id = GetAvailableMapID(_currentMap);
+                _configureSet.CurrentSetName.text = _dataService.GetItemsData().Maps[id].Name;
                 break;
         }
+        Debug.Log($"Current Color {_currentColor}");
+        UpdatePreview();
     }
     private async void UpdatePreview()
     {
         _configureSet.PreviewBackground.sprite = await Tretimi.Assets.GetAsset<Sprite>(
-            $"Background{_currentColor}");
+            $"Background{GetAvailableColorID(_currentColor)}");
 
         _configureSet.PreviewBall.sprite = await Tretimi.Assets.GetAsset<Sprite>(
-            $"Ball{_currentBall}");
+            $"Ball{GetAvailableBallID(_currentBall)}");
 
         _configureSet.PreviewMap.sprite = await Tretimi.Assets.GetAsset<Sprite>(
-            $"Map{_currentMap}");
+            $"Map{GetAvailableMapID(_currentMap)}");
+
+        var itemsData = _dataService.GetItemsData();
+
+        _configureSet.Color.Name.text = itemsData.Backgrounds[GetAvailableColorID(_currentColor)].Name;
+        _configureSet.Ball.Name.text = itemsData.Balls[GetAvailableBallID(_currentBall)].Name;
+        _configureSet.Map.Name.text = itemsData.Maps[GetAvailableMapID(_currentMap)].Name;
     }
-    private async void SetPreview(int index)
+    private void SetPreview(int index)
     {
         var mySets = _dataService.GetData().MySets;
 
@@ -225,13 +250,10 @@ public class ConfigureSetState : State
         _currentBall = mySets[index].ball;
         _currentMap = mySets[index].map;
 
-        _configureSet.PreviewBackground.sprite = await Tretimi.Assets.GetAsset<Sprite>(
-            $"Background{_currentColor}");
+        Debug.Log($"Preview _currentColor {_currentColor}");
+        Debug.Log($"Preview _currentBall {_currentBall}");
+        Debug.Log($"Preview _currentMap {_currentMap}");
 
-        _configureSet.PreviewBall.sprite = await Tretimi.Assets.GetAsset<Sprite>(
-            $"Ball{_currentBall}");
-
-        _configureSet.PreviewMap.sprite = await Tretimi.Assets.GetAsset<Sprite>(
-            $"Map{_currentMap}");
+        UpdatePreview();
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ConfigureSetItem : MonoBehaviour
 {
+    public int ID;
     [SerializeField] private Image _colorImage, _ballImage, _mapImage;
     [SerializeField] private GameObject _color, _ball, _map, _emptyBackground;
     public void SetColor(Sprite colorImage)
