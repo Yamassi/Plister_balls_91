@@ -162,6 +162,61 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b9e15493e9fc844e7b8306988c68a86a
+    m_Address: GameBall4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 72b4dcfdbed304181b227828df7f1c07
+    m_Address: GameBall3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 32c5c1bc1152a460082836aeb2e85845
+    m_Address: GameBall2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8fe65d0c576824c65a9ab3821dcdab28
+    m_Address: GameBall1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c905a2608051843b3a2e1a9216a91696
+    m_Address: GameBall0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d06f96633dc2247f79d947362624c78a
+    m_Address: GameMap0_0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 60fea1633d4bd484a9b9c22e932dabf0
+    m_Address: Back3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b29c55ecf740e45ad8848a0f19210e22
+    m_Address: Back0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cdf92273d1923468d8e7cbc6c272ce66
+    m_Address: Back2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 00feea530403b4aab94e12302900ed55
+    m_Address: Back1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f8a583dd7025b4ce18f5b8d513f6c636
+    m_Address: Back4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5f5bac9cf5fdb42d3a4f379019183f0e, type: 2}
   m_SchemaSet:

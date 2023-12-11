@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b8a2e364ea34f5cb2cb0c4576ade44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   _colorImage: {fileID: 9021751469312194943}
   _ballImage: {fileID: 1581511614247174813}
   _mapImage: {fileID: 8565508206848017652}

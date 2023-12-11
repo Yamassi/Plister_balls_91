@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2504131082330565373}
   - component: {fileID: 5056245510730863661}
   m_Layer: 0
-  m_Name: Ball0
+  m_Name: GameBall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 300604468289155492}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d4f96ca4f934a495781d428e5e8bdb82, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b20eb5dc4a9ff469e8f8c11c74f47047, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,8 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d930574ea32476ea1d8229aa788457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsSaving: 0
-  SavingPercent: 0
 --- !u!58 &2504131082330565373
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Tretimi;
 using TMPro;
+using System;
 public class XSlot : MonoBehaviour
 {
     [SerializeField] private float _coeficcient;
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private TextMeshPro _text;
+    public Action<float> OnBallFallToXSlot;
     private void OnValidate()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -33,14 +35,14 @@ public class XSlot : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        int savingPercent = 0;
+        // int savingPercent = 0;
         Debug.Log($"Trigger enter {other.gameObject.name}");
         // if (other.gameObject.TryGetComponent<Ball>(out Ball ball))
         // {
         //     savingPercent = ball.SavingPercent;
         // };
 
-        // EventHolder.OnBallFallToXSlot?.Invoke(_coeficcient, savingPercent);
+        OnBallFallToXSlot?.Invoke(_coeficcient);
         Destroy(other.gameObject);
         // AudioSystem.Instance.BallFallToSlot();
     }

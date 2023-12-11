@@ -6,14 +6,16 @@ using UnityEngine;
 using UniRx;
 public class GiftsCore
 {
+    private readonly IUIService _uIService;
     private readonly Gifts _gifts;
     private List<(GiftType giftType, int id)> _openGifts = new(4);
     private bool _isGiftsAvailable = false;
     private float _itemDropChance = 20;
     private readonly IDataService _dataHolder;
     private CompositeDisposable _disposable = new();
-    public GiftsCore(Gifts gifts, IDataService dataHolder)
+    public GiftsCore(Gifts gifts, IDataService dataHolder, IUIService uIService)
     {
+        _uIService = uIService;
         _gifts = gifts;
         _dataHolder = dataHolder;
     }
@@ -165,7 +167,7 @@ public class GiftsCore
             }
         }
 
-        _dataHolder.UpdateUI();
+        _uIService.UpdateUI();
         ResetGifts();
 
         StartTimer();

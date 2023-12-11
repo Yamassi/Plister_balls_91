@@ -7,12 +7,14 @@ using UnityEngine.UI;
 
 public class ShopState : State
 {
+    private IUIService _uIService;
     private readonly ShopButtons _shopButtons;
     private readonly Shop _shop;
     private ItemType _currentItemsType;
-    public ShopState(IStateSwitcher stateSwitcher, IDataService dataService,
+    public ShopState(IStateSwitcher stateSwitcher, IDataService dataService, IUIService uIService,
     TopA topA, ShopButtons shopButtons, Shop shop) : base(stateSwitcher, dataService, topA)
     {
+        _uIService = uIService;
         _shopButtons = shopButtons;
         _shop = shop;
     }
@@ -88,7 +90,7 @@ public class ShopState : State
             _dataService.GetData().Coins -= price;
             availableItemsData.Add(id);
 
-            _dataService.UpdateUI();
+            _uIService.UpdateUI();
 
             _shop.ShopItems[id].Received();
         }

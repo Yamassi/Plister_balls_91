@@ -3,12 +3,14 @@ using UnityEngine;
 
 public class SelectSetState : State
 {
+    private IUIService _uIService;
     private TopB _topB;
     private SelectSet _selectSet;
     private int _currentSet;
-    public SelectSetState(IStateSwitcher stateSwitcher, IDataService dataService, TopA topA,
+    public SelectSetState(IStateSwitcher stateSwitcher, IDataService dataService, IUIService uIService, TopA topA,
    TopB topB, SelectSet selectSet) : base(stateSwitcher, dataService, topA)
     {
+        _uIService = uIService;
         _topB = topB;
         _selectSet = selectSet;
     }

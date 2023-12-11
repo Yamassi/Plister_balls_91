@@ -3,13 +3,15 @@ using UnityEngine.UI;
 
 public class MainMenuState : State
 {
+    private readonly IUIService _uIService;
     private readonly MainMenu _mainMenu;
     private readonly TopB _topB;
     private GiftsCore _giftsCore;
     public MainMenuState(IStateSwitcher stateSwitcher,
-    IDataService dataService, TopA topA, TopB topB,
+    IDataService dataService, IUIService uIService, TopA topA, TopB topB,
     MainMenu mainMenu) : base(stateSwitcher, dataService, topA)
     {
+        _uIService = uIService;
         _topB = topB;
         _mainMenu = mainMenu;
     }
@@ -26,7 +28,7 @@ public class MainMenuState : State
         _mainMenu.Play.onClick.AddListener(SwitchToSelectSet);
 
         if (_giftsCore == null)
-            _giftsCore = new(_mainMenu.Gifts, _dataService);
+            _giftsCore = new(_mainMenu.Gifts, _dataService, _uIService);
 
         _giftsCore.Init();
     }
