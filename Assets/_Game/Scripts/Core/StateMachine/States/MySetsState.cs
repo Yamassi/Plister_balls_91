@@ -18,7 +18,8 @@ public class MySetsState : State
         _topA.SettingsButton.gameObject.SetActive(true);
         _mySets.gameObject.SetActive(true);
 
-        _topA.BackButton.onClick.AddListener(BackToMainMenu);
+        _topA.BackButton.onClick.AddListener(GoToMainMenu);
+        _topA.SettingsButton.onClick.AddListener(GoToSettings);
 
         UpdateMySets();
     }
@@ -29,7 +30,8 @@ public class MySetsState : State
         _topA.SettingsButton.gameObject.SetActive(false);
         _mySets.gameObject.SetActive(false);
 
-        _topA.BackButton.onClick.RemoveListener(BackToMainMenu);
+        _topA.BackButton.onClick.RemoveListener(GoToMainMenu);
+        _topA.SettingsButton.onClick.RemoveListener(GoToSettings);
     }
     private async void UpdateMySets()
     {
@@ -71,8 +73,14 @@ public class MySetsState : State
         PlayerPrefs.SetInt("CurrentConfigureSet", id);
     }
 
-    private void BackToMainMenu()
+    private void GoToMainMenu()
     {
         _stateSwitcher.SwitchState<MainMenuState>();
+    }
+
+    private void GoToSettings()
+    {
+        PlayerPrefs.SetString("LastPage", "MySetsState");
+        _stateSwitcher.SwitchState<SettingsState>();
     }
 }

@@ -95,6 +95,8 @@ public class Game : IStateSwitcher, IDataService, IUIService
         }
         else
             Data = saveData;
+
+        AudioSystem.Instance.LoadSettingsValues();
     }
     public SaveData GetData()
     {

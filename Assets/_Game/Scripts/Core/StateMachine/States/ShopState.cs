@@ -26,7 +26,8 @@ public class ShopState : State
         _shopButtons.gameObject.SetActive(true);
         _shop.gameObject.SetActive(true);
 
-        _topA.BackButton.onClick.AddListener(BackToMainMenu);
+        _topA.BackButton.onClick.AddListener(GoToMainMenu);
+        _topA.SettingsButton.onClick.AddListener(GoToSettings);
 
         _shopButtons.BallButton.Button.onClick.AddListener(OpenBallShop);
         _shopButtons.BackgroundButton.Button.onClick.AddListener(OpenBackgroundShop);
@@ -45,14 +46,14 @@ public class ShopState : State
         _shopButtons.gameObject.SetActive(false);
         _shop.gameObject.SetActive(false);
 
-        _topA.BackButton.onClick.RemoveListener(BackToMainMenu);
+        _topA.BackButton.onClick.RemoveListener(GoToMainMenu);
+        _topA.SettingsButton.onClick.RemoveListener(GoToSettings);
 
         _shopButtons.BallButton.Button.onClick.RemoveListener(OpenBallShop);
         _shopButtons.BackgroundButton.Button.onClick.RemoveListener(OpenBackgroundShop);
         _shopButtons.MapButton.Button.onClick.RemoveListener(OpenMapShop);
         _shopButtons.CoinsButton.Button.onClick.RemoveListener(OpenCoinsShop);
     }
-
 
     private void SubcribeToButtons()
     {
@@ -199,9 +200,15 @@ public class ShopState : State
         }
     }
 
-    private void BackToMainMenu()
+    private void GoToMainMenu()
     {
         _stateSwitcher.SwitchState<MainMenuState>();
+    }
+
+    private void GoToSettings()
+    {
+        PlayerPrefs.SetString("LastPage", "ShopState");
+        _stateSwitcher.SwitchState<SettingsState>();
     }
 }
 

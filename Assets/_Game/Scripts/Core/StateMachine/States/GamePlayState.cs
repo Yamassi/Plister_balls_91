@@ -46,6 +46,7 @@ public class GamePlayState : State
     private void SubscribeToButtons()
     {
         _topA.BackButton.onClick.AddListener(GoToSelectSet);
+        _topA.SettingsButton.onClick.AddListener(GoToSettings);
         _gamePlayUI.Parameters.onClick.AddListener(GoToParameters);
         _gamePlayUI.Play.onClick.AddListener(LaunchBall);
         _gamePlay.OnBallFall += BallFallToXSlot;
@@ -54,18 +55,13 @@ public class GamePlayState : State
     private void UnsubscribeToButtons()
     {
         _topA.BackButton.onClick.RemoveListener(GoToSelectSet);
+        _topA.SettingsButton.onClick.RemoveListener(GoToSettings);
         _gamePlayUI.Parameters.onClick.RemoveListener(GoToParameters);
         _gamePlayUI.Play.onClick.RemoveListener(LaunchBall);
         _gamePlay.OnBallFall -= BallFallToXSlot;
 
         if (_tween != null)
             _tween.onComplete -= ResetCoins;
-    }
-
-    private void GoToParameters()
-    {
-        PlayerPrefs.SetInt("CurrentMap", _currentMapID);
-        _stateSwitcher.SwitchState<ConfigureDifficultyState>();
     }
 
     private async void BallFallToXSlot(float coefficient)
@@ -78,7 +74,7 @@ public class GamePlayState : State
 
             _topA.Coins.ArrowDown.gameObject.SetActive(false);
             Debug.Log("Lose Score " + (int)(_currentCost * coefficient));
-            AudioSystem.Instance.WinSound();
+            AudioSystem.Instance.LoseSound();
         }
 
         if (coefficient > 1)
@@ -88,7 +84,7 @@ public class GamePlayState : State
             await UniTask.Delay(500);
             _topA.Coins.ArrowUp.gameObject.SetActive(false);
             Debug.Log("Win Score " + (int)(_currentCost * coefficient));
-            AudioSystem.Instance.LoseSound();
+            AudioSystem.Instance.WinSound();
         }
 
         _dataService.AddCoins((int)(_currentCost * coefficient));
@@ -115,11 +111,6 @@ public class GamePlayState : State
             _isFrozen = false;
         }
 
-    }
-
-    private void GoToSelectSet()
-    {
-        _stateSwitcher.SwitchState<SelectSetState>();
     }
     private async void PlayGame()
     {
@@ -162,5 +153,19 @@ public class GamePlayState : State
         _gamePlayUI.CurrentDifficulty.text = (_currentDifficultyID + 1).ToString();
         _gamePlayUI.CurrentWeight.text = _currentWeight.ToString();
         _uIService.ChangeBackground(_currentColorID);
+    }
+    private void GoToSelectSet()
+    {
+        _stateSwitcher.SwitchState<SelectSetState>();
+    }
+    private void GoToParameters()
+    {
+        PlayerPrefs.SetInt("CurrentMap", _currentMapID);
+        _stateSwitcher.SwitchState<ConfigureDifficultyState>();
+    }
+    private void GoToSettings()
+    {
+        PlayerPrefs.SetString("LastPage", "GamePlayState");
+        _stateSwitcher.SwitchState<SettingsState>();
     }
 }

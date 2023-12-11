@@ -40,7 +40,8 @@ public class SelectSetState : State
     }
     private void SubcribeToButtons()
     {
-        _topA.BackButton.onClick.AddListener(BackToMainMenu);
+        _topA.BackButton.onClick.AddListener(GoToMainMenu);
+        _topA.SettingsButton.onClick.AddListener(GoToSettings);
         _selectSet.PrevButton.Button.onClick.AddListener(PrevSet);
         _selectSet.NextButton.Button.onClick.AddListener(NextSet);
 
@@ -49,7 +50,8 @@ public class SelectSetState : State
 
     private void UnsubcribeToButtons()
     {
-        _topA.BackButton.onClick.RemoveListener(BackToMainMenu);
+        _topA.BackButton.onClick.RemoveListener(GoToMainMenu);
+        _topA.SettingsButton.onClick.RemoveListener(GoToSettings);
         _selectSet.PrevButton.Button.onClick.RemoveListener(PrevSet);
         _selectSet.NextButton.Button.onClick.RemoveListener(NextSet);
 
@@ -134,8 +136,13 @@ public class SelectSetState : State
         }
     }
 
-    private void BackToMainMenu()
+    private void GoToMainMenu()
     {
         _stateSwitcher.SwitchState<MainMenuState>();
+    }
+    private void GoToSettings()
+    {
+        PlayerPrefs.SetString("LastPage", "SelectSetState");
+        _stateSwitcher.SwitchState<SettingsState>();
     }
 }
