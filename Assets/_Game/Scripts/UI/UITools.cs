@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 
@@ -41,8 +42,7 @@ namespace UITools
 
         public static DateTime ConvertStringToDateTime(string dateTime)
         {
-            System.Globalization.CultureInfo enUS = new("en-US");
-            DateTime convertedTime = DateTime.Parse(dateTime, enUS);
+            DateTime convertedTime = DateTime.Parse(dateTime, CultureInfo.InvariantCulture);
 
             return convertedTime;
         }

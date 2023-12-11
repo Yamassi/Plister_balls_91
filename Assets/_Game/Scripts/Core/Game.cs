@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Tretimi;
 using UnityEngine;
@@ -68,13 +69,13 @@ public class Game : IStateSwitcher, IDataService, IUIService
 
     private void LoadData()
     {
-        SaveData saveData = DataProvider.LoadData();
+        SaveData saveData = DataProvider.LoadDataJSON();
 
         if (saveData is null)
         {
             List<int> resetedList = new() { 0 };
 
-            DateTime currentTime = DateTime.Now;
+            DateTime currentTime = DateTime.Now.AddHours(-1);
             Debug.Log("Saved Data is null and reseted");
             Data = new()
             {
@@ -84,8 +85,7 @@ public class Game : IStateSwitcher, IDataService, IUIService
                 AvailableMaps = new(resetedList),
                 AvailableBackgrounds = new(resetedList),
                 MySets = new List<(int, int, int)>() { (0, 0, 0) },
-
-                TimeToOpenGift = currentTime.AddHours(-1).ToString(),
+                TimeToOpenGift = currentTime.ToString(CultureInfo.InvariantCulture),
             };
 
             PlayerPrefs.SetFloat("MusicVolume", 1);

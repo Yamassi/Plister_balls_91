@@ -1,5 +1,4 @@
 using System;
-using UnityEditor.Build.Player;
 using UnityEngine;
 
 public class SettingsState : State

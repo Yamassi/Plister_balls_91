@@ -4,6 +4,7 @@ using System.Linq;
 using Tretimi;
 using UnityEngine;
 using UniRx;
+using System.Globalization;
 public class GiftsCore
 {
     private readonly IUIService _uIService;
@@ -146,7 +147,7 @@ public class GiftsCore
         _gifts.GetButton.onClick.RemoveListener(GetGifts);
 
         DateTime time = DateTime.Now;
-        _dataHolder.GetData().TimeToOpenGift = time.AddHours(Const.WaitGiftHours).ToString();
+        _dataHolder.GetData().TimeToOpenGift = time.AddHours(Const.WaitGiftHours).ToString(CultureInfo.InvariantCulture);
 
         for (int i = 0; i < _openGifts.Count; i++)
         {
@@ -177,12 +178,15 @@ public class GiftsCore
     {
         _gifts.GetButton.gameObject.SetActive(false);
         _gifts.TextBox.gameObject.SetActive(true);
-
+        Debug.Log("Start Timer");
         DateTime timerToOpen = UITools.Timer.ConvertStringToDateTime(_dataHolder.GetData().TimeToOpenGift);
         DateTime currentTime = DateTime.Now;
 
         var difference = timerToOpen.Subtract(currentTime);
         float remainingTime = (float)difference.TotalSeconds;
+
+        Debug.Log($"Difference time {difference}");
+        Debug.Log($"Difference time {remainingTime}");
 
         Observable.EveryUpdate().Subscribe(_ =>
         {
@@ -194,8 +198,6 @@ public class GiftsCore
                 _gifts.TextBox.Text.text = $"{time.Hours}:{time.Minutes}:{time.Seconds}";
             }
         }).AddTo(_disposable);
-
-
     }
 
     private void SetBackgroundPrizeText(Prize prize, int randomGiftNum)

@@ -7,7 +7,7 @@ public class Bootloader : MonoBehaviour
     [SerializeField] private GamePlay _gamePlay;
     [SerializeField] private ItemsData _itemsData;
     private Game _game;
-    private void Awake()
+    private void Start()
     {
         _game = new Game(_uIHolder, _gamePlay, _itemsData);
         _game.Init();
@@ -15,6 +15,6 @@ public class Bootloader : MonoBehaviour
     private void OnApplicationQuit()
     {
         Debug.Log("Application Quit");
-        DataProvider.SaveData(_game.Data);
+        DataProvider.SaveDataJSON(_game.Data);
     }
 }

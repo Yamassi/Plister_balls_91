@@ -4,6 +4,6 @@ using UnityEngine;
 
 public static class Const
 {
-    public const int FirstCoins = 50000, WaitGiftHours = 24;
+    public const int FirstCoins = 500, WaitGiftHours = 24;
     public const float FirstSoundVol = 1, FirstMusicVol = 1f;
 }
