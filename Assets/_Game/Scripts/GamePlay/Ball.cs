@@ -17,10 +17,10 @@ public class Ball : MonoBehaviour
     public void Launch()
     {
         _rigidbody2D.simulated = true;
-        float randomX = Random.Range(-0.1f, 0.1f);
+        float randomX = Random.Range(-0.05f, 0.05f);
         if (randomX == 0)
-            randomX = Random.Range(-0.1f, 0.1f);
+            randomX = Random.Range(-0.05f, 0.05f);
 
-        transform.DOLocalMoveX(randomX, 0.1f);
+        transform.DOLocalMoveX(randomX, 0.05f);
     }
 }

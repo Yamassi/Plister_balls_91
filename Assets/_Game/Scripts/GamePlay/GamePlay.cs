@@ -14,8 +14,26 @@ public class GamePlay : MonoBehaviour
     private Map _currentMap;
     public async Task SetBall(int ballID, int weight)
     {
+        float convertedWeight;
+        switch (weight)
+        {
+            case 10:
+                convertedWeight = 0.3f;
+                break;
+            case 50:
+                convertedWeight = 0.6f;
+                break;
+            case 100:
+                convertedWeight = 1f;
+                break;
+            default:
+                convertedWeight = 1.5f;
+                break;
+        }
+
+
         _ballPrefab = await Tretimi.Assets.GetAsset<GameObject>($"GameBall{ballID}");
-        _ballPrefab.GetComponent<Rigidbody2D>().gravityScale = weight;
+        _ballPrefab.GetComponent<Rigidbody2D>().gravityScale = convertedWeight;
     }
     public async Task SetMap(int mapID, int difficultyID)
     {
@@ -52,5 +70,15 @@ public class GamePlay : MonoBehaviour
     {
         _currentBall.Launch();
         CreateBall();
+    }
+    public void ClearGamePlay()
+    {
+        var balls = GetComponentsInChildren<Ball>();
+
+        if (balls != null)
+            for (int i = 0; i < balls.Length; i++)
+            {
+                Destroy(balls[i].gameObject);
+            }
     }
 }
