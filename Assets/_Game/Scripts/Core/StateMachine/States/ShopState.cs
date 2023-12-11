@@ -9,7 +9,7 @@ public class ShopState : State
 {
     private readonly ShopButtons _shopButtons;
     private readonly Shop _shop;
-    private ShopItemType _currentItemsType;
+    private ItemType _currentItemsType;
     public ShopState(IStateSwitcher stateSwitcher, IDataService dataService,
     TopA topA, ShopButtons shopButtons, Shop shop) : base(stateSwitcher, dataService, topA)
     {
@@ -68,11 +68,11 @@ public class ShopState : State
 
         switch (_currentItemsType)
         {
-            case ShopItemType.Background:
+            case ItemType.Background:
                 price = _dataService.GetItemsData().Backgrounds[id].Price;
                 availableItemsData = _dataService.GetData().AvailableBackgrounds;
                 break;
-            case ShopItemType.Map:
+            case ItemType.Map:
                 price = _dataService.GetItemsData().Maps[id].Price;
                 availableItemsData = _dataService.GetData().AvailableMaps;
                 break;
@@ -112,7 +112,7 @@ public class ShopState : State
 
     private void OpenMapShop()
     {
-        _currentItemsType = ShopItemType.Map;
+        _currentItemsType = ItemType.Map;
 
         _shop.ShopCoinsList.gameObject.SetActive(false);
         _shop.ShopItemsPoint.gameObject.SetActive(true);
@@ -125,12 +125,12 @@ public class ShopState : State
 
         List<ShopItemSO> itemsSO = _dataService.GetItemsData().Maps;
         List<int> availableItems = _dataService.GetData().AvailableMaps;
-        UpdateList(itemsSO, availableItems, ShopItemType.Map);
+        UpdateList(itemsSO, availableItems, ItemType.Map);
     }
 
     private void OpenBackgroundShop()
     {
-        _currentItemsType = ShopItemType.Background;
+        _currentItemsType = ItemType.Background;
 
         _shop.ShopCoinsList.gameObject.SetActive(false);
         _shop.ShopItemsPoint.gameObject.SetActive(true);
@@ -142,12 +142,12 @@ public class ShopState : State
 
         List<ShopItemSO> itemsSO = _dataService.GetItemsData().Backgrounds;
         List<int> availableItems = _dataService.GetData().AvailableBackgrounds;
-        UpdateList(itemsSO, availableItems, ShopItemType.Background);
+        UpdateList(itemsSO, availableItems, ItemType.Background);
     }
 
     private void OpenBallShop()
     {
-        _currentItemsType = ShopItemType.Ball;
+        _currentItemsType = ItemType.Ball;
 
         _shop.ShopCoinsList.gameObject.SetActive(false);
         _shop.ShopItemsPoint.gameObject.SetActive(true);
@@ -159,15 +159,15 @@ public class ShopState : State
 
         List<ShopItemSO> itemsSO = _dataService.GetItemsData().Balls;
         List<int> availableItems = _dataService.GetData().AvailableBalls;
-        UpdateList(itemsSO, availableItems, ShopItemType.Ball);
+        UpdateList(itemsSO, availableItems, ItemType.Ball);
     }
 
-    private async void UpdateList(List<ShopItemSO> itemsSO, List<int> availableItems, ShopItemType itemType)
+    private async void UpdateList(List<ShopItemSO> itemsSO, List<int> availableItems, ItemType itemType)
     {
         string spriteName = itemType switch
         {
-            ShopItemType.Background => "Background",
-            ShopItemType.Map => "Map",
+            ItemType.Background => "Background",
+            ItemType.Map => "Map",
             _ => "ShopBall",
         };
 
@@ -177,13 +177,13 @@ public class ShopState : State
 
             switch (itemType)
             {
-                case ShopItemType.Ball:
+                case ItemType.Ball:
                     _shop.ShopItems[i].SetImage(sprite);
                     break;
-                case ShopItemType.Background:
+                case ItemType.Background:
                     _shop.ShopItems[i].SetFullImage(sprite);
                     break;
-                case ShopItemType.Map:
+                case ItemType.Map:
                     _shop.ShopItems[i].SetMapImage(sprite);
                     break;
             }
@@ -203,7 +203,7 @@ public class ShopState : State
     }
 }
 
-public enum ShopItemType
+public enum ItemType
 {
     Ball,
     Background,

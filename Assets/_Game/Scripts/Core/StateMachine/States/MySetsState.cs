@@ -22,7 +22,15 @@ public class MySetsState : State
 
         UpdateMySets();
     }
+    public override void Exit()
+    {
+        _topA.Coins.gameObject.SetActive(false);
+        _topA.BackButton.gameObject.SetActive(false);
+        _topA.SettingsButton.gameObject.SetActive(false);
+        _mySets.gameObject.SetActive(false);
 
+        _topA.BackButton.onClick.RemoveListener(BackToMainMenu);
+    }
     private async void UpdateMySets()
     {
         var mySetsData = _dataService.GetData().MySets;
@@ -61,16 +69,6 @@ public class MySetsState : State
     {
         _stateSwitcher.SwitchState<ConfigureSetState>();
         PlayerPrefs.SetInt("CurrentConfigureSet", id);
-    }
-
-    public override void Exit()
-    {
-        _topA.Coins.gameObject.SetActive(false);
-        _topA.BackButton.gameObject.SetActive(false);
-        _topA.SettingsButton.gameObject.SetActive(false);
-        _mySets.gameObject.SetActive(false);
-
-        _topA.BackButton.onClick.RemoveListener(BackToMainMenu);
     }
 
     private void BackToMainMenu()
