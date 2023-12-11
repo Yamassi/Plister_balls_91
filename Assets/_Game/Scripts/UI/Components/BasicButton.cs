@@ -21,6 +21,6 @@ public class BasicButton : MonoBehaviour
 
     private void Click()
     {
-        // AudioSystem.Instance.PlayClick();
+        AudioSystem.Instance.PlayClick();
     }
 }

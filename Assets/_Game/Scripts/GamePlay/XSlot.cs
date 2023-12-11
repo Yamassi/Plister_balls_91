@@ -44,6 +44,6 @@ public class XSlot : MonoBehaviour
 
         OnBallFallToXSlot?.Invoke(_coeficcient);
         Destroy(other.gameObject);
-        // AudioSystem.Instance.BallFallToSlot();
+        AudioSystem.Instance.BallFallToSlot();
     }
 }

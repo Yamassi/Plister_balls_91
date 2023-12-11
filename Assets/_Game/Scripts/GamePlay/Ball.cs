@@ -22,5 +22,7 @@ public class Ball : MonoBehaviour
             randomX = Random.Range(-0.05f, 0.05f);
 
         transform.DOLocalMoveX(randomX, 0.05f);
+
+        AudioSystem.Instance.BallLaunch();
     }
 }

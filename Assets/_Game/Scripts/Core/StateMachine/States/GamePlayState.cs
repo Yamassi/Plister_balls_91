@@ -78,6 +78,7 @@ public class GamePlayState : State
 
             _topA.Coins.ArrowDown.gameObject.SetActive(false);
             Debug.Log("Lose Score " + (int)(_currentCost * coefficient));
+            AudioSystem.Instance.WinSound();
         }
 
         if (coefficient > 1)
@@ -87,6 +88,7 @@ public class GamePlayState : State
             await UniTask.Delay(500);
             _topA.Coins.ArrowUp.gameObject.SetActive(false);
             Debug.Log("Win Score " + (int)(_currentCost * coefficient));
+            AudioSystem.Instance.LoseSound();
         }
 
         _dataService.AddCoins((int)(_currentCost * coefficient));
