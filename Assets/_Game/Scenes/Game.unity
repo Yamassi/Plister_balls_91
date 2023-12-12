@@ -366,7 +366,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.91531265, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.8132324, y: 1.4970016}
+  m_AnchoredPosition: {x: -2.8132324, y: 1.496994}
   m_SizeDelta: {x: -1.0999756, y: -1.2099991}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &11225667
@@ -3235,7 +3235,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.30566874, y: 0}
   m_AnchorMax: {x: 0.38983285, y: 1}
-  m_AnchoredPosition: {x: -0.37850952, y: 0.1519928}
+  m_AnchoredPosition: {x: -0.378479, y: 0.1519928}
   m_SizeDelta: {x: -0.1000061, y: 0.30000305}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &129552357
@@ -5598,7 +5598,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.60832816, y: 0}
   m_AnchorMax: {x: 0.694, y: 1}
-  m_AnchoredPosition: {x: 0.1541748, y: 1.4970016}
+  m_AnchoredPosition: {x: 0.1541748, y: 1.496994}
   m_SizeDelta: {x: -2.0999756, y: -1.2099991}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &219316984
@@ -7649,7 +7649,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.20316717, y: 0}
   m_AnchorMax: {x: 0.28816718, y: 1}
-  m_AnchoredPosition: {x: -0.05596924, y: 0.30203247}
+  m_AnchoredPosition: {x: -0.055908203, y: 0.30203247}
   m_SizeDelta: {x: -1.1000061, y: 0.6000061}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &294258384
@@ -10426,7 +10426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e298cbc5a8a4298b0956de0bf011ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  URL: 
+  URL: https://sites.google.com/view/cihan-enkol/terms-conditions
 --- !u!114 &435443440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12762,7 +12762,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.8105078, y: 0}
   m_AnchorMax: {x: 0.89900005, y: 1}
-  m_AnchoredPosition: {x: -0.49072266, y: 1.4970016}
+  m_AnchoredPosition: {x: -0.49072266, y: 1.496994}
   m_SizeDelta: {x: -4.0999756, y: -1.2099991}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &527741044
@@ -20230,7 +20230,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.4064768, y: 0}
   m_AnchorMax: {x: 0.4893127, y: 1}
-  m_AnchoredPosition: {x: 0.29904175, y: 1.4970016}
+  m_AnchoredPosition: {x: 0.29904175, y: 1.496994}
   m_SizeDelta: {x: 0.8999939, y: -1.2099991}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &871325148
@@ -21652,7 +21652,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5081641, y: 0}
   m_AnchorMax: {x: 0.592, y: 1}
-  m_AnchoredPosition: {x: -0.023376465, y: 0.99700165}
+  m_AnchoredPosition: {x: -0.023376465, y: 0.996994}
   m_SizeDelta: {x: -0.1000061, y: -2.209999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &928994312
@@ -22695,7 +22695,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.09900001, y: 0}
   m_AnchorMax: {x: 0.18517955, y: 1}
-  m_AnchoredPosition: {x: 1.2664795, y: 1.4970016}
+  m_AnchoredPosition: {x: 1.2664795, y: 1.496994}
   m_SizeDelta: {x: -2.0999985, y: -1.2099991}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &968255132
@@ -28244,7 +28244,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.08032819, y: 1}
-  m_AnchoredPosition: {x: 1.5888672, y: 1.4970016}
+  m_AnchoredPosition: {x: 1.5888672, y: 1.496994}
   m_SizeDelta: {x: 2.9000015, y: -1.2099991}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1189628830
@@ -34917,7 +34917,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.71032816, y: 0}
   m_AnchorMax: {x: 0.7953282, y: 1}
-  m_AnchoredPosition: {x: 0.33166504, y: 1.4970016}
+  m_AnchoredPosition: {x: 0.33166504, y: 1.496994}
   m_SizeDelta: {x: -2.0999756, y: -1.2099991}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1462838037
@@ -35826,7 +35826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e298cbc5a8a4298b0956de0bf011ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  URL: 
+  URL: https://sites.google.com/view/cihan-enkol/privacy-policy
 --- !u!114 &1529394681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38902,7 +38902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e298cbc5a8a4298b0956de0bf011ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  URL: 
+  URL: https://sites.google.com/view/cihan-enkol/support-form
 --- !u!114 &1676742222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41727,7 +41727,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.30400002, y: 0}
   m_AnchorMax: {x: 0.3901641, y: 1}
-  m_AnchoredPosition: {x: -0.37850952, y: 1.4970016}
+  m_AnchoredPosition: {x: -0.378479, y: 1.496994}
   m_SizeDelta: {x: -2.100006, y: -1.2099991}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1838733585
@@ -44033,7 +44033,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.20152317, y: 0}
   m_AnchorMax: {x: 0.28765637, y: 1}
-  m_AnchoredPosition: {x: 0.44403076, y: 1.4970016}
+  m_AnchoredPosition: {x: 0.44403076, y: 1.496994}
   m_SizeDelta: {x: -2.100006, y: -1.2099991}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1946481530

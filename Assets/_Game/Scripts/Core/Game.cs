@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Tretimi;
 using UnityEngine;
+#if UNITY_IOS
+using UnityEngine.iOS;
+#endif
 public class Game : IStateSwitcher, IDataService, IUIService
 {
     public SaveData Data;
@@ -70,7 +73,7 @@ public class Game : IStateSwitcher, IDataService, IUIService
     private void RequestToRate()
     {
 #if UNITY_IOS
-Device.RequestStoreReview();
+        Device.RequestStoreReview();
 #endif
     }
 
