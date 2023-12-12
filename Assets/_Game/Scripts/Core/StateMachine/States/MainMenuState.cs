@@ -1,6 +1,6 @@
 using System;
 using UnityEngine.UI;
-
+using UnityEngine;
 public class MainMenuState : State
 {
     private readonly IUIService _uIService;
@@ -17,6 +17,7 @@ public class MainMenuState : State
     }
     public override void Enter()
     {
+        Debug.Log("Enter Main Menu State");
         _topA.Coins.gameObject.SetActive(true);
         _topB.Header.gameObject.SetActive(true);
         _mainMenu.gameObject.SetActive(true);
@@ -34,6 +35,7 @@ public class MainMenuState : State
     }
     public override void Exit()
     {
+        Debug.Log("Exit Main Menu State");
         _topA.Coins.gameObject.SetActive(false);
         _topB.Header.gameObject.SetActive(false);
         _mainMenu.gameObject.SetActive(false);

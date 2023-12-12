@@ -2,6 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using DG.Tweening;
+using System.Threading;
 public class GamePlayState : State
 {
     private IUIService _uIService;
@@ -9,8 +10,9 @@ public class GamePlayState : State
     private GamePlay _gamePlay;
     private int _currentBallID, _currentColorID, _currentMapID,
     _currentDifficultyID, _currentCost, _currentWeight;
-    private Tween _tween;
+    private Tween _tweenArrow, _tweenText;
     private bool _isFrozen;
+    private CancellationTokenSource _cts, _cts2, _cts3;
     public GamePlayState(IStateSwitcher stateSwitcher, IDataService dataService, IUIService uIService,
     TopA topA, GamePlayUI gamePlayUI, GamePlay gamePlay) : base(stateSwitcher, dataService, topA)
     {
@@ -20,27 +22,42 @@ public class GamePlayState : State
     }
     public override void Enter()
     {
+        Debug.Log("Enter GamePlay State");
         _topA.Coins.gameObject.SetActive(true);
         _topA.BackButton.gameObject.SetActive(true);
         _topA.SettingsButton.gameObject.SetActive(true);
         _gamePlayUI.gameObject.SetActive(true);
         _gamePlay.gameObject.SetActive(true);
 
+        ResetLocalData();
         PlayGame();
         SubscribeToButtons();
     }
 
     public override void Exit()
     {
+        Debug.Log("Exit GamePlay State");
         _topA.Coins.gameObject.SetActive(false);
         _topA.BackButton.gameObject.SetActive(false);
         _topA.SettingsButton.gameObject.SetActive(false);
         _gamePlayUI.gameObject.SetActive(false);
         _gamePlay.gameObject.SetActive(false);
 
+        _topA.Coins.ArrowDown.gameObject.SetActive(false);
+        _topA.Coins.ArrowUp.gameObject.SetActive(false);
+
         UnsubscribeToButtons();
-        _tween?.Kill();
+        _tweenArrow?.Kill();
+        _tweenText?.Kill();
         _gamePlay.ClearGamePlay();
+
+        _cts.Cancel();
+        _cts2.Cancel();
+        _cts3.Cancel();
+
+        _cts.Dispose();
+        _cts2.Dispose();
+        _cts3.Dispose();
     }
 
     private void SubscribeToButtons()
@@ -59,9 +76,6 @@ public class GamePlayState : State
         _gamePlayUI.Parameters.onClick.RemoveListener(GoToParameters);
         _gamePlayUI.Play.onClick.RemoveListener(LaunchBall);
         _gamePlay.OnBallFall -= BallFallToXSlot;
-
-        if (_tween != null)
-            _tween.onComplete -= ResetCoins;
     }
 
     private async void BallFallToXSlot(float coefficient)
@@ -69,8 +83,8 @@ public class GamePlayState : State
         if (coefficient < 1)
         {
             _topA.Coins.ArrowDown.gameObject.SetActive(true);
-            _tween = _topA.Coins.ArrowDown.rectTransform.DOShakeScale(0.49f);
-            await UniTask.Delay(500);
+            _tweenArrow = _topA.Coins.ArrowDown.rectTransform.DOShakeScale(0.49f).OnComplete(ResetArrow);
+            await UniTask.Delay(500, cancellationToken: _cts.Token);
 
             _topA.Coins.ArrowDown.gameObject.SetActive(false);
             Debug.Log("Lose Score " + (int)(_currentCost * coefficient));
@@ -80,16 +94,19 @@ public class GamePlayState : State
         if (coefficient > 1)
         {
             _topA.Coins.ArrowUp.gameObject.SetActive(true);
-            _tween = _topA.Coins.ArrowUp.rectTransform.DOShakeScale(0.49f);
-            await UniTask.Delay(500);
+            _tweenArrow = _topA.Coins.ArrowUp.rectTransform.DOShakeScale(0.49f).OnComplete(ResetArrow);
+            await UniTask.Delay(500, cancellationToken: _cts2.Token);
+            ResetArrow();
+
             _topA.Coins.ArrowUp.gameObject.SetActive(false);
             Debug.Log("Win Score " + (int)(_currentCost * coefficient));
             AudioSystem.Instance.WinSound();
         }
 
         _dataService.AddCoins((int)(_currentCost * coefficient));
-        _tween = _topA.Coins.CoinsText.rectTransform.DOShakeScale(0.15f);
-        _tween.onComplete += ResetCoins;
+        _tweenText = _topA.Coins.CoinsText.rectTransform.DOShakeScale(0.15f).OnComplete(ResetCoins);
+        await UniTask.Delay(150);
+
         _uIService.UpdateUI();
     }
 
@@ -97,17 +114,21 @@ public class GamePlayState : State
     {
         _topA.Coins.CoinsText.rectTransform.localScale = Vector3.one;
     }
-
+    private void ResetArrow()
+    {
+        _topA.Coins.ArrowUp.rectTransform.localScale = Vector3.one;
+        _topA.Coins.ArrowDown.rectTransform.localScale = Vector3.one;
+    }
     private async void LaunchBall()
     {
-        if (!_isFrozen)
+        if (!_isFrozen && _dataService.GetData().Coins >= _currentCost)
         {
             _gamePlay.LaunchBall();
             _dataService.RemoveCoins(_currentCost);
             _uIService.UpdateUI();
             _isFrozen = true;
 
-            await UniTask.Delay(1000);
+            await UniTask.Delay(1000, cancellationToken: _cts3.Token);
             _isFrozen = false;
         }
 
@@ -123,6 +144,15 @@ public class GamePlayState : State
         await _gamePlay.SetMap(_currentMapID, _currentDifficultyID);
         await _gamePlay.SetBall(_currentBallID, _currentWeight);
         _gamePlay.CreateBall();
+    }
+
+    private void ResetLocalData()
+    {
+        _cts = new();
+        _cts2 = new();
+        _cts3 = new();
+
+        _isFrozen = false;
     }
 
     private void LoadData(int currentSetID)

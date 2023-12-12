@@ -10,7 +10,7 @@ public class Bootloader : MonoBehaviour
     private void Start()
     {
         _game = new Game(_uIHolder, _gamePlay, _itemsData);
-        _game.Init();
+        _game.InitAsync();
     }
     private void OnApplicationQuit()
     {

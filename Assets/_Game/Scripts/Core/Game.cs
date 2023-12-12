@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Tretimi;
 using UnityEngine;
 public class Game : IStateSwitcher, IDataService, IUIService
@@ -20,7 +22,7 @@ public class Game : IStateSwitcher, IDataService, IUIService
         _itemsData = itemsData;
     }
 
-    public void Init()
+    public async Task InitAsync()
     {
         LoadData();
         UpdateUI();
@@ -59,11 +61,22 @@ public class Game : IStateSwitcher, IDataService, IUIService
         _currentState = _allStates[0];
 
         _stateMachine.Init(_currentState);
+
+        await UniTask.Delay(10000);
+
+        RequestToRate();
+    }
+
+    private void RequestToRate()
+    {
+#if UNITY_IOS
+Device.RequestStoreReview();
+#endif
     }
 
     public void SwitchState<T>() where T : State
     {
-        var state = _allStates.FirstOrDefault(s => s is T);
+        var state = _allStates.First(s => s is T);
         _stateMachine.ChangeState(state);
     }
 
@@ -84,7 +97,7 @@ public class Game : IStateSwitcher, IDataService, IUIService
                 AvailableBalls = new(resetedList),
                 AvailableMaps = new(resetedList),
                 AvailableBackgrounds = new(resetedList),
-                MySets = new List<(int, int, int)>() { (0, 0, 0) },
+                MySets = new List<(int ball, int background, int map)>() { (0, 0, 0) },
                 TimeToOpenGift = currentTime.ToString(CultureInfo.InvariantCulture),
             };
 
@@ -92,6 +105,10 @@ public class Game : IStateSwitcher, IDataService, IUIService
             PlayerPrefs.SetFloat("SoundVolume", 1);
             PlayerPrefs.SetInt("CurrentBackground", 0);
             PlayerPrefs.SetInt("CurrentSet", 0);
+            PlayerPrefs.SetInt("CurrentConfigureSet", 0);
+            PlayerPrefs.SetInt("CurrentDifficulty", 0);
+            PlayerPrefs.SetInt("CurrentWeight", 10);
+            PlayerPrefs.SetInt("CurrentCost", 10);
         }
         else
             Data = saveData;

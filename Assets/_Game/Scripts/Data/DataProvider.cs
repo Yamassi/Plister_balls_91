@@ -2,6 +2,7 @@ using System.Collections;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using Newtonsoft.Json;
 
 namespace Tretimi
 {
@@ -10,7 +11,8 @@ namespace Tretimi
         public static void SaveDataJSON(SaveData saveData)
         {
             Debug.Log("SaveData");
-            string json = JsonUtility.ToJson(saveData);
+            // string json = JsonUtility.ToJson(saveData);
+            string json = JsonConvert.SerializeObject(saveData);
             File.WriteAllText(Application.persistentDataPath + "/SaveData.json", json);
         }
         public static SaveData LoadDataJSON()
@@ -19,7 +21,8 @@ namespace Tretimi
             if (File.Exists(Application.persistentDataPath + "/SaveData.json"))
             {
                 string json = File.ReadAllText(Application.persistentDataPath + "/SaveData.json");
-                data = JsonUtility.FromJson<SaveData>(json);
+                // data = JsonUtility.FromJson<SaveData>(json);
+                data = JsonConvert.DeserializeObject<SaveData>(json);
             }
             else
             {

@@ -37,21 +37,13 @@ public class GamePlay : MonoBehaviour
     }
     public async Task SetMap(int mapID, int difficultyID)
     {
-        if (_currentMap != null)
-        {
-            for (int i = 0; i < _currentMap._xSlots.Count; i++)
-            {
-                _currentMap._xSlots[i].OnBallFallToXSlot -= BallFallToXSlot;
-            }
-            Destroy(_currentMap.gameObject);
-        }
-
         _mapPrefab = await Tretimi.Assets.GetAsset<GameObject>($"GameMap{mapID}_{difficultyID}");
         GameObject map = Instantiate(_mapPrefab, MapPoint);
         _currentMap = map.GetComponent<Map>();
 
         for (int i = 0; i < _currentMap._xSlots.Count; i++)
         {
+            Debug.Log($"Подписка на слот X {i}");
             _currentMap._xSlots[i].OnBallFallToXSlot += BallFallToXSlot;
         }
     }
@@ -80,5 +72,15 @@ public class GamePlay : MonoBehaviour
             {
                 Destroy(balls[i].gameObject);
             }
+
+        if (_currentMap != null)
+        {
+            for (int i = 0; i < _currentMap._xSlots.Count; i++)
+            {
+                Debug.Log($"Отписка от слота X {i}");
+                _currentMap._xSlots[i].OnBallFallToXSlot -= BallFallToXSlot;
+            }
+            Destroy(_currentMap.gameObject);
+        }
     }
 }

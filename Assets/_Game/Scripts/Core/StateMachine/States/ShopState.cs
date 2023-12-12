@@ -53,6 +53,8 @@ public class ShopState : State
         _shopButtons.BackgroundButton.Button.onClick.RemoveListener(OpenBackgroundShop);
         _shopButtons.MapButton.Button.onClick.RemoveListener(OpenMapShop);
         _shopButtons.CoinsButton.Button.onClick.RemoveListener(OpenCoinsShop);
+
+        UnsubcribeToButtons();
     }
 
     private void SubcribeToButtons()
@@ -62,7 +64,13 @@ public class ShopState : State
             _shop.ShopItems[i].OnItemTryToBuy += TryToBuy;
         }
     }
-
+    private void UnsubcribeToButtons()
+    {
+        for (int i = 0; i < _shop.ShopItems.Count; i++)
+        {
+            _shop.ShopItems[i].OnItemTryToBuy -= TryToBuy;
+        }
+    }
     private void TryToBuy(int id)
     {
         int coins = _dataService.GetData().Coins;

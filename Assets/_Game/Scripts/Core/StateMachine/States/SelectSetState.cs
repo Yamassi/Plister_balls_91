@@ -16,6 +16,7 @@ public class SelectSetState : State
     }
     public override void Enter()
     {
+        Debug.Log("Enter Select State");
         _topA.Coins.gameObject.SetActive(true);
         _topA.BackButton.gameObject.SetActive(true);
         _topA.SettingsButton.gameObject.SetActive(true);
@@ -30,6 +31,7 @@ public class SelectSetState : State
 
     public override void Exit()
     {
+        Debug.Log("Exit Select State");
         _topA.Coins.gameObject.SetActive(false);
         _topA.BackButton.gameObject.SetActive(false);
         _topA.SettingsButton.gameObject.SetActive(false);

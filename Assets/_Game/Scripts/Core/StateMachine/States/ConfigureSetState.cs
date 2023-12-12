@@ -16,6 +16,7 @@ public class ConfigureSetState : State
     }
     public override void Enter()
     {
+        Debug.Log("Enter Configure Set State");
         _currentConfigureSet = PlayerPrefs.GetInt("CurrentConfigureSet");
 
         _topA.Header.HeaderText.text = $"SET {_currentConfigureSet + 1}";
@@ -35,6 +36,7 @@ public class ConfigureSetState : State
 
     public override void Exit()
     {
+        Debug.Log("Exit Configure Set State");
         _topA.Header.gameObject.SetActive(false);
         _configureSet.gameObject.SetActive(false);
 
@@ -250,9 +252,9 @@ public class ConfigureSetState : State
         _currentBall = mySets[index].ball;
         _currentMap = mySets[index].map;
 
-        Debug.Log($"Preview _currentColor {_currentColor}");
-        Debug.Log($"Preview _currentBall {_currentBall}");
-        Debug.Log($"Preview _currentMap {_currentMap}");
+        // Debug.Log($"Preview _currentColor {_currentColor}");
+        // Debug.Log($"Preview _currentBall {_currentBall}");
+        // Debug.Log($"Preview _currentMap {_currentMap}");
 
         UpdatePreview();
     }

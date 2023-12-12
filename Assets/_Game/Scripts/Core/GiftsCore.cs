@@ -185,8 +185,8 @@ public class GiftsCore
         var difference = timerToOpen.Subtract(currentTime);
         float remainingTime = (float)difference.TotalSeconds;
 
-        Debug.Log($"Difference time {difference}");
-        Debug.Log($"Difference time {remainingTime}");
+        // Debug.Log($"Difference time {difference}");
+        // Debug.Log($"Difference time {remainingTime}");
 
         Observable.EveryUpdate().Subscribe(_ =>
         {

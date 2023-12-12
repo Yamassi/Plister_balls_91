@@ -11,6 +11,7 @@ public class ShopItem : MonoBehaviour
     public SelectButtonSingleText SelectButtonSingleText;
     public Action<int> OnItemTryToBuy;
     private Tween _tween;
+    private bool _isReceived = false;
     private void OnEnable()
     {
         SelectButtonSingleText.Button.onClick.AddListener(ItemSelected);
@@ -39,12 +40,24 @@ public class ShopItem : MonoBehaviour
         SelectButtonSingleText.InactiveImage.gameObject.SetActive(true);
 
         SelectButtonSingleText.ButtonText.text = "Received";
+        _isReceived = true;
         Debug.Log("Received");
     }
     public void NotEnoughMoney()
     {
-        _tween = SelectButtonSingleText.GetComponent<RectTransform>().DOShakeAnchorPos(0.3f, 60);
+        if (!_isReceived)
+        {
+            _tween = SelectButtonSingleText.GetComponent<RectTransform>().DOShakeScale(0.10f);
+            _tween.onComplete += ResetPos;
+        }
+
     }
+
+    private void ResetPos()
+    {
+        SelectButtonSingleText.GetComponent<RectTransform>().localScale = Vector3.one;
+    }
+
     public void SetName(string name)
     {
         Name.text = name;

@@ -14,6 +14,7 @@ public class ConfigureDifficultyState : State
     }
     public override void Enter()
     {
+        Debug.Log("Enter Configure Difficulty State");
         _topA.Coins.gameObject.SetActive(true);
         _topA.BackButton.gameObject.SetActive(true);
         _topA.SettingsButton.gameObject.SetActive(true);
@@ -26,6 +27,7 @@ public class ConfigureDifficultyState : State
 
     public override void Exit()
     {
+        Debug.Log("Exit Configure Difficulty State");
         _topA.Coins.gameObject.SetActive(false);
         _topA.BackButton.gameObject.SetActive(false);
         _topA.SettingsButton.gameObject.SetActive(false);
@@ -37,6 +39,7 @@ public class ConfigureDifficultyState : State
     {
         _topA.BackButton.onClick.AddListener(GoToGamePlay);
         _configureDifficulty.PlayButton.onClick.AddListener(GoToGamePlay);
+        _topA.SettingsButton.onClick.AddListener(GoToSettings);
 
         _configureDifficulty.OnCostSelect += CostChanged;
         _configureDifficulty.OnWeightSelect += WeightChanged;
@@ -47,6 +50,7 @@ public class ConfigureDifficultyState : State
     {
         _topA.BackButton.onClick.AddListener(GoToGamePlay);
         _configureDifficulty.PlayButton.onClick.RemoveListener(GoToGamePlay);
+        _topA.SettingsButton.onClick.RemoveListener(GoToSettings);
 
         _configureDifficulty.OnCostSelect -= CostChanged;
         _configureDifficulty.OnWeightSelect -= WeightChanged;
@@ -125,5 +129,9 @@ public class ConfigureDifficultyState : State
         _stateSwitcher.SwitchState<GamePlayState>();
     }
 
-
+    private void GoToSettings()
+    {
+        PlayerPrefs.SetString("LastPage", "ConfigureDifficultyState");
+        _stateSwitcher.SwitchState<SettingsState>();
+    }
 }
