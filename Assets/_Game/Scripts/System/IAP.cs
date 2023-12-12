@@ -1,18 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Purchasing;
 public class IAP : MonoBehaviour, IStoreListener
 {
+    [SerializeField] private List<ButtonIAP> _buttonIAPs;
     private IStoreController _storeController;
-    private const string IAP_RED_BALL = "speed_ball";
-    private const string IAP_GREEN_BALL = "saver_ball";
+    private IDataService _dataService;
 
-    private void Start()
+    public void Init(IDataService dataService)
     {
+        _dataService = dataService;
+
         SetupBuilder();
-        // EventHolder.OnPurchasing += Purchase;
+        for (int i = 0; i < _buttonIAPs.Count; i++)
+        {
+            _buttonIAPs[i].OnPurchasing += Purchase;
+        }
     }
 
     private void Purchase(string id)
@@ -25,20 +31,29 @@ public class IAP : MonoBehaviour, IStoreListener
 
     private void AddRedBall()
     {
-        Debug.Log("On Success Purchase 3");
-        // EventHolder.OnSuccessPurchasing?.Invoke(3);
+        Debug.Log("On Success Purchase 0");
+        _dataService.AddCoins(5000);
+
     }
     private void AddGreenBall()
     {
-        Debug.Log("On Success Purchase 4");
-        // EventHolder.OnSuccessPurchasing?.Invoke(4);
+        Debug.Log("On Success Purchase 1");
+        _dataService.AddCoins(12000);
+
+    }
+    private void AddYellowBall()
+    {
+        Debug.Log("On Success Purchase 2");
+        _dataService.AddCoins(50000);
+
     }
     private void SetupBuilder()
     {
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
-        builder.AddProduct(IAP_RED_BALL, ProductType.NonConsumable);
-        builder.AddProduct(IAP_GREEN_BALL, ProductType.NonConsumable);
+        builder.AddProduct(Const.IAP_1, ProductType.Consumable);
+        builder.AddProduct(Const.IAP_2, ProductType.Consumable);
+        builder.AddProduct(Const.IAP_3, ProductType.Consumable);
 
         UnityPurchasing.Initialize(this, builder);
 
@@ -55,11 +70,14 @@ public class IAP : MonoBehaviour, IStoreListener
 
         switch (product.definition.id)
         {
-            case IAP_RED_BALL:
+            case Const.IAP_1:
                 AddRedBall();
                 break;
-            case IAP_GREEN_BALL:
+            case Const.IAP_2:
                 AddGreenBall();
+                break;
+            case Const.IAP_3:
+                AddYellowBall();
                 break;
         }
 

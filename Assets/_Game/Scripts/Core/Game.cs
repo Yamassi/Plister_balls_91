@@ -22,7 +22,7 @@ public class Game : IStateSwitcher, IDataService, IUIService
         _itemsData = itemsData;
     }
 
-    public async Task InitAsync()
+    public async void Init()
     {
         LoadData();
         UpdateUI();
@@ -131,6 +131,7 @@ Device.RequestStoreReview();
     public void AddCoins(int coins)
     {
         Data.Coins += coins;
+        UpdateUI();
     }
 
     public void RemoveCoins(int coins)
@@ -138,6 +139,7 @@ Device.RequestStoreReview();
         Data.Coins -= coins;
         if (Data.Coins <= 0)
             Data.Coins = 0;
+        UpdateUI();
     }
 
     public async void ChangeBackground(int index)
