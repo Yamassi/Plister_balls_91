@@ -29,19 +29,19 @@ public class IAP : MonoBehaviour, IStoreListener
         Debug.Log($"Purchase {id}");
     }
 
-    private void AddRedBall()
+    private void Add5k()
     {
         Debug.Log("On Success Purchase 0");
         _dataService.AddCoins(5000);
 
     }
-    private void AddGreenBall()
+    private void Add12k()
     {
         Debug.Log("On Success Purchase 1");
         _dataService.AddCoins(12000);
 
     }
-    private void AddYellowBall()
+    private void Add50k()
     {
         Debug.Log("On Success Purchase 2");
         _dataService.AddCoins(50000);
@@ -71,13 +71,13 @@ public class IAP : MonoBehaviour, IStoreListener
         switch (product.definition.id)
         {
             case Const.IAP_1:
-                AddRedBall();
+                Add5k();
                 break;
             case Const.IAP_2:
-                AddGreenBall();
+                Add12k();
                 break;
             case Const.IAP_3:
-                AddYellowBall();
+                Add50k();
                 break;
         }
 

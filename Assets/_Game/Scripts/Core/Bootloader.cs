@@ -6,7 +6,7 @@ public class Bootloader : MonoBehaviour
     [SerializeField] private UIHolder _uIHolder;
     [SerializeField] private GamePlay _gamePlay;
     [SerializeField] private ItemsData _itemsData;
-    [SerializeField] private IAP _iAP;
+    [SerializeField] private InAppCallbacks _iAP;
     private Game _game;
     private void Start()
     {
