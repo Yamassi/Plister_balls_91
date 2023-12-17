@@ -14,9 +14,14 @@ public class Bootloader : MonoBehaviour
         _game.Init();
         _iAP.Init(_game);
     }
+    private void OnApplicationFocus(bool isFocus)
+    {
+        Debug.Log($"Application Pause {isFocus}");
+        if (!isFocus)
+            DataProvider.SaveDataJSON(_game.GetData());
+    }
     private void OnApplicationQuit()
     {
-        Debug.Log("Application Quit");
-        DataProvider.SaveDataJSON(_game.Data);
+        DataProvider.SaveDataJSON(_game.GetData());
     }
 }
